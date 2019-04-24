@@ -1,9 +1,7 @@
-import main from './main'
-import login from './login'
-import global from './global'
+import url from './url'
+import service from './service'
 
 export default {
-  GLOBAL: global,
-  LOGIN: login,
-  MAIN: main
+  URL: url,
+  SERVICE: service
 }

@@ -5,18 +5,13 @@
     </div>
     <v-form
       ref="form"
-      v-model="valid"
       lazy-validation
       class="form-body">
       <v-text-field
-        v-model="name"
         :counter="10"
-        :rules="nameRules"
         :label="$t(lang + 'number')"
         required></v-text-field>
       <v-text-field
-        v-model="email"
-        :rules="emailRules"
         :label="$t(lang + 'password')"
         required
       ></v-text-field>
@@ -33,6 +28,8 @@
 <script>
   export default {
     name: 'LoginForm',
+    mounted () {
+    },
     data () {
       return {
         lang: 'login.login_form.'
@@ -40,6 +37,11 @@
     },
     methods: {
       login () {
+        this.$service.dispatch(this.$define.SERVICE.LOGIN.LOGIN_FORM.ACT_LOGIN, {
+          number: 'liuri'
+        }).then((info) => {
+          console.log('login wjshile' + info)
+        })
       }
     }
   }

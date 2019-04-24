@@ -8,30 +8,21 @@ import 'vuetify/dist/vuetify.min.css'
 import VueAxios from 'vue-axios'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import VueI18n from 'vue-i18n'
-import lang from './lang'
+import i18n from './i18n'
 import define from './define'
 import Vuex from 'vuex'
 
-window.$share = {}
-
-window.$share.define = Vue.prototype.$define = define
 Vue.config.productionTip = false
 
-Vue.use(VueI18n)
 Vue.use(Vuetify)
 Vue.use(ElementUI)
 Vue.use(VueAxios, axios)
 Vue.use(Vuex)
 
-const i18n = new VueI18n({
-  locale: 'en',
-  messages: lang
-})
+Vue.prototype.$define = define
+Vue.prototype.$service = service
 
-window.$share.service = Vue.prototype.$service = new Vuex.Store({
-  modules: service
-})
+axios.defaults.baseURL = window.$HOST
 
 new Vue({
   i18n,

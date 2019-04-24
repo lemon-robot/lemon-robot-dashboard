@@ -1,6 +1,11 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+
 import global from './global'
 import login from './login'
 import main from './main'
+
+Vue.use(Vuex)
 
 let result = {}
 
@@ -20,4 +25,8 @@ findStoreModule({
   main
 })
 
-export default result
+console.log(result)
+
+export default new Vuex.Store({
+  modules: result
+})
