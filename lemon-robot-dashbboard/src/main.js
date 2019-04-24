@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import service from './service'
 import axios from 'axios'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
@@ -13,7 +13,9 @@ import lang from './lang'
 import define from './define'
 import Vuex from 'vuex'
 
-Vue.prototype.$define = define
+window.$share = {}
+
+window.$share.define = Vue.prototype.$define = define
 Vue.config.productionTip = false
 
 Vue.use(VueI18n)
@@ -23,12 +25,12 @@ Vue.use(VueAxios, axios)
 Vue.use(Vuex)
 
 const i18n = new VueI18n({
-  locale: 'zh',
+  locale: 'en',
   messages: lang
 })
 
-Vue.prototype.$store = new Vuex.Store({
-  modules: store
+window.$share.service = Vue.prototype.$service = new Vuex.Store({
+  modules: service
 })
 
 new Vue({

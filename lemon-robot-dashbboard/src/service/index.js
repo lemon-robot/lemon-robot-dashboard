@@ -1,3 +1,5 @@
+import global from './global'
+import login from './login'
 import main from './main'
 
 let result = {}
@@ -13,6 +15,8 @@ function findStoreModule (tree) {
 }
 
 findStoreModule({
+  global,
+  login,
   main
 })
 

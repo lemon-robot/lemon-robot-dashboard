@@ -1,7 +1,8 @@
 <template>
   <div class="control-menu-impl">
     <user-menu></user-menu>
-    <function-menu></function-menu>
+    <function-menu class="function-menu"></function-menu>
+    <div class="info-area">LemonIT.CN</div>
   </div>
 </template>
 
@@ -17,7 +18,18 @@
 
 <style scoped lang="scss">
   .control-menu-impl {
-    background: #555555;
+    background: #444444;
     color: #eeeeee;
+    display: flex;
+    flex-direction: column;
+
+    .function-menu {
+      flex-grow: 1;
+    }
+
+    .info-area {
+      font-size: 12px;
+      margin: 10px 0;
+    }
   }
 </style>

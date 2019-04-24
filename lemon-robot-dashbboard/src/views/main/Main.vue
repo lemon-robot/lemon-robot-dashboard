@@ -11,7 +11,18 @@
 
   export default {
     name: 'Login',
-    components: { ControlMenu }
+    components: { ControlMenu },
+    mounted () {
+      if (!this.$service.getters[this.$define.GLOBAL.USER.GET_LOGIN_STATE]) {
+        this.$router.replace('/login')
+        console.log(this.$t(this.lang + 'not_login_tip'))
+      }
+    },
+    data () {
+      return {
+        lang: 'main.'
+      }
+    }
   }
 </script>
 
