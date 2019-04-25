@@ -12,11 +12,17 @@
   export default {
     name: 'Login',
     components: { ControlMenu },
-    mounted () {
-      if (!this.$service.getters[this.$define.GLOBAL.USER.GET_LOGIN_STATE]) {
+    created () {
+      if (!this.$service.getters[this.$define.SERVICE.GLOBAL.USER.GET_LOGIN_STATE]) {
+        this.$notify({
+          title: this.$t(this.lang + 'not_login_tip_title'),
+          message: this.$t(this.lang + 'not_login_tip_message'),
+          type: 'warning'
+        })
         this.$router.replace('/login')
-        console.log(this.$t(this.lang + 'not_login_tip'))
       }
+    },
+    mounted () {
     },
     data () {
       return {
