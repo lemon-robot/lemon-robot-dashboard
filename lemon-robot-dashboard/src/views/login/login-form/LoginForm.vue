@@ -8,16 +8,15 @@
         lazy-validation
         class="form-body">
       <v-text-field
-          :counter="10"
           :label="$t(lang + 'number')"
           v-model="loginForm.number"
           required></v-text-field>
       <v-text-field
           :label="$t(lang + 'password')"
           v-model="loginForm.password"
-          required
-      ></v-text-field>
-      <v-switch v-model="loginForm.rememberMe" color="primary" :label="$t(lang + 'remember_password')"></v-switch>
+          type="password"
+          required></v-text-field>
+      <v-switch v-model="loginForm.rememberPassword" color="primary" :label="$t(lang + 'remember_password')"></v-switch>
       <v-btn
           block
           color="primary"
@@ -36,17 +35,13 @@
     data () {
       return {
         lang: 'login.login_form.',
-        loginForm: {
-          number: '',
-          password: '',
-          rememberMe: false
-        }
+        loginForm: this.$service.getters[this.$define.SERVICE.LOGIN.LOGIN_FORM.GET_CACHE_LOGIN_FORM]
       }
     },
     methods: {
       login () {
         this.$service.dispatch(this.$define.SERVICE.LOGIN.LOGIN_FORM.ACT_LOGIN, this.loginForm).then((info) => {
-          console.log('login wjshile' + info)
+          this.$router.replace('/')
         })
       }
     }
