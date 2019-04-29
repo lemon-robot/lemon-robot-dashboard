@@ -1,25 +1,24 @@
 <template>
   <div class="function-menu-impl">
-    function menu
+    <template v-for="item in mainRouters.children">
+      <div :key="item.name">{{item.name}}</div>
+    </template>
   </div>
 </template>
 
 <script>
+  import mainRouterDefine from '@/router/main'
+
   export default {
     name: 'FunctionMenu',
     data () {
       return {
-        functionList: [
-          {
-            name: 'dispatcher_manager',
-            path: ''
-          }
-        ]
+        mainRouters: mainRouterDefine
       }
     },
     mounted () {
       console.log(this.$router.options.routes)
-      console.log(this.$route)
+      console.log(mainRouterDefine.children)
     }
   }
 </script>

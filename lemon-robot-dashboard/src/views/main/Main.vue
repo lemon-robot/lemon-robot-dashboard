@@ -1,7 +1,7 @@
 <template>
   <div class="main-impl">
     <control-menu class="control-menu"></control-menu>
-    <router-view class="router-content"/>
+    <router-view class="router-main-content"/>
   </div>
 </template>
 
@@ -43,6 +43,10 @@
       min-width: 300px;
       width: 300px;
       overflow: scroll;
+    }
+
+    .router-main-content {
+      flex-grow: 1;
     }
   }
 </style>
