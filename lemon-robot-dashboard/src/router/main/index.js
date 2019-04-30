@@ -12,6 +12,11 @@ export default {
       path: 'user-manager',
       component: () => import('@/views/main/functions/user-manager/UserManager'),
       name: 'user_manager'
+    },
+    {
+      path: 'system-settiings',
+      component: () => import('@/views/main/functions/system-settings/SystemSettings'),
+      name: 'system_settings'
     }
   ]
 }

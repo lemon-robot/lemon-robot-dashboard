@@ -40,8 +40,8 @@
     align-items: stretch;
 
     .control-menu {
-      min-width: 300px;
-      width: 300px;
+      min-width: 240px;
+      width: 240px;
       overflow: scroll;
     }
 

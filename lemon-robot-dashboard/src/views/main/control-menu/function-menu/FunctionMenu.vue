@@ -1,8 +1,9 @@
 <template>
   <div class="function-menu-impl">
-    <template v-for="item in mainRouters.children">
-      <div :key="item.name">{{item.name}}</div>
-    </template>
+    <div v-for="item in mainRouters.children" class="function-menu-item" :key="item.name">
+      <i :class="'item-icon el-icon-' + item.name"></i>
+      <div>{{$t('functions.' + item.name)}}</div>
+    </div>
   </div>
 </template>
 
@@ -30,5 +31,20 @@
     border-image: -webkit-linear-gradient(to right, #444444 10%, #999, #444444 90%) 30 30;
     border-image: -moz-linear-gradient(to right, #444444 10%, #999, #444444 90%) 30 30;
     border-image: linear-gradient(to right, #444444 10%, #999, #444444 90%) 30 30;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .function-menu-item {
+    width: 46%;
+    height: 100px;
+    border: 1px solid #eeeeee;
+    cursor: pointer;
+    margin-left: 3%;
+    margin-top: 6px;
+
+    .item-icon {
+      font-size: 40px;
+    }
   }
 </style>

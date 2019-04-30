@@ -11,6 +11,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import i18n from './i18n'
 import define from './define'
 import Vuex from 'vuex'
+import '@/assets/iconfont/iconfont.css'
 
 Vue.config.productionTip = false
 
