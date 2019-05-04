@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import service from './store'
+import store from './store'
 import axios from 'axios'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
@@ -52,7 +52,7 @@ axios.interceptors.response.use(function (response) {
 })
 
 Vue.prototype.$define = define
-Vue.prototype.$service = service
+Vue.prototype.$store = store
 
 axios.defaults.baseURL = window.$HOST
 

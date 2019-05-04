@@ -35,12 +35,12 @@
     data () {
       return {
         lang: 'login.login_form.',
-        loginForm: this.$service.getters[this.$define.SERVICE.LOGIN.LOGIN_FORM.GET_CACHE_LOGIN_FORM]
+        loginForm: this.$store.getters[this.$define.SERVICE.LOGIN.LOGIN_FORM.GET_CACHE_LOGIN_FORM]
       }
     },
     methods: {
       login () {
-        this.$service.dispatch(this.$define.SERVICE.LOGIN.LOGIN_FORM.ACT_LOGIN, this.loginForm).then((info) => {
+        this.$store.dispatch(this.$define.SERVICE.LOGIN.LOGIN_FORM.ACT_LOGIN, this.loginForm).then((info) => {
           this.$router.replace('/')
         })
       }

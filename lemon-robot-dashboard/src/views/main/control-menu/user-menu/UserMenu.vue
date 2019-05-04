@@ -22,7 +22,7 @@
     name: 'UserMenu',
     components: { UserInfoPanel },
     mounted () {
-      console.log('LOGIN STATE: ' + this.$service.getters[this.$define.SERVICE.GLOBAL.USER.GET_LOGIN_STATE])
+      console.log('LOGIN STATE: ' + this.$store.getters[this.$define.SERVICE.GLOBAL.USER.GET_LOGIN_STATE])
     },
     data () {
       return {

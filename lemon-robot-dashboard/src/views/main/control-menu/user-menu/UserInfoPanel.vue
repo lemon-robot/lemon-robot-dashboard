@@ -14,7 +14,7 @@
     },
     methods: {
       logoutNow () {
-        this.$service.commit(this.$define.SERVICE.GLOBAL.USER.MUT_LOGOUT)
+        this.$store.commit(this.$define.SERVICE.GLOBAL.USER.MUT_LOGOUT)
         this.$router.replace('/login')
       }
     }

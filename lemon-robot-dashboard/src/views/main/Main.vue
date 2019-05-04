@@ -13,7 +13,7 @@
     name: 'Login',
     components: { ControlMenu },
     created () {
-      if (!this.$service.getters[this.$define.SERVICE.GLOBAL.USER.GET_LOGIN_STATE]) {
+      if (!this.$store.getters[this.$define.SERVICE.GLOBAL.USER.GET_LOGIN_STATE]) {
         this.$notify({
           title: this.$t(this.lang + 'not_login_tip_title'),
           message: this.$t(this.lang + 'not_login_tip_message'),
