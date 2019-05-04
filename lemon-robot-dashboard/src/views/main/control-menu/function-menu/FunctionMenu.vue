@@ -1,8 +1,13 @@
 <template>
   <div class="function-menu-impl">
-    <div v-for="item in mainRouters.children" class="function-menu-item" :key="item.name">
-      <i :class="'item-icon el-icon-' + item.name"></i>
-      <div>{{$t('functions.' + item.name)}}</div>
+    <div class="function-item-list">
+      <router-link v-for="item in mainRouters.children" :key="item.name" :to="'/' + item.path"
+                   class="function-menu-item" active-class="function-menu-item-active">
+        <i :class="'item-icon el-icon-' + item.name"></i>
+        <div class="item-title-container">
+          <div class="item-title">{{$t('functions.' + item.name)}}</div>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -31,20 +36,45 @@
     border-image: -webkit-linear-gradient(to right, #444444 10%, #999, #444444 90%) 30 30;
     border-image: -moz-linear-gradient(to right, #444444 10%, #999, #444444 90%) 30 30;
     border-image: linear-gradient(to right, #444444 10%, #999, #444444 90%) 30 30;
+  }
+
+  .function-item-list {
     display: flex;
     flex-wrap: wrap;
-  }
 
-  .function-menu-item {
-    width: 46%;
-    height: 100px;
-    border: 1px solid #eeeeee;
-    cursor: pointer;
-    margin-left: 3%;
-    margin-top: 6px;
+    .function-menu-item {
+      width: 46%;
+      height: 100px;
+      border: 1px solid #888888;
+      cursor: pointer;
+      margin-left: 3%;
+      margin-top: 6px;
+      color: #999999;
+      text-decoration: none;
 
-    .item-icon {
-      font-size: 40px;
+      .item-icon {
+        font-size: 40px;
+        margin-top: 10px;
+      }
+
+      .item-title-container {
+        height: 32px;
+        display: flex;
+        margin: 6px 10px 0 10px;
+        align-items: center;
+      }
+
+      .item-title {
+        line-height: 16px;
+        font-size: 14px;
+      }
     }
+
+    .function-menu-item-active {
+      color: #fff;
+      background: radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    }
+
   }
+
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="user-info-panel-impl">
-    <v-btn color="error" block>{{$t(lang + 'logout')}}</v-btn>
+    <v-btn color="error" block @click="logoutNow">{{$t(lang + 'logout')}}</v-btn>
   </div>
 </template>
 
@@ -10,6 +10,12 @@
     data () {
       return {
         lang: 'main.control_menu.user_menu.user_info_panel.'
+      }
+    },
+    methods: {
+      logoutNow () {
+        this.$service.commit(this.$define.SERVICE.GLOBAL.USER.MUT_LOGOUT)
+        this.$router.replace('/login')
       }
     }
   }

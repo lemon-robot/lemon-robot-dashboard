@@ -27,7 +27,7 @@ export default {
             if (loginForm.rememberPassword) {
               commit($define.SERVICE.LOGIN.LOGIN_FORM.MUT_SAVE_CACHE_LOGIN_FORM, loginForm)
             }
-            commit($define.SERVICE.GLOBAL.USER.MUT_LOGIN_STATE, true)
+            commit($define.SERVICE.GLOBAL.USER.MUT_LOGIN_TOKEN, resp.data.data)
             resolve()
           }
         }).catch(err => {

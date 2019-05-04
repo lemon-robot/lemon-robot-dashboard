@@ -30,6 +30,7 @@
     .info-area {
       font-size: 12px;
       margin: 10px 0;
+      letter-spacing: 1.5px;
     }
   }
 </style>
