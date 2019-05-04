@@ -4,46 +4,51 @@
       {{$t(lang + 'header_title')}}
     </div>
     <v-form
-        ref="form"
-        lazy-validation
-        class="form-body">
+      ref="form"
+      lazy-validation
+      class="form-body">
       <v-text-field
-          :label="$t(lang + 'number')"
-          v-model="loginForm.number"
-          required></v-text-field>
+        :label="$t(lang + 'number')"
+        v-model="loginForm.number"
+        required></v-text-field>
       <v-text-field
-          :label="$t(lang + 'password')"
-          v-model="loginForm.password"
-          type="password"
-          required></v-text-field>
+        :label="$t(lang + 'password')"
+        v-model="loginForm.password"
+        type="password"
+        required></v-text-field>
       <v-switch v-model="loginForm.rememberPassword" color="primary" :label="$t(lang + 'remember_password')"></v-switch>
       <v-btn
-          block
-          color="primary"
-          @click="login">
+        block
+        color="primary"
+        @click="login">
         {{$t(lang + 'login')}}
       </v-btn>
     </v-form>
   </div>
 </template>
 
-<script>
-  export default {
-    name: 'LoginForm',
+<script lang="ts">
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
+  import LoginService from '@/service/login/LoginService'
+  import AppInfoDefine from '@/define/info/AppInfo'
+
+  @Component
+  export default class LoginForm extends Vue {
+    lang = 'login.login_form.'
+    loginForm = LoginService.getLoginFormCache()
+
     mounted () {
-    },
-    data () {
-      return {
-        lang: 'login.login_form.',
-        loginForm: this.$store.getters[this.$define.SERVICE.LOGIN.LOGIN_FORM.GET_CACHE_LOGIN_FORM]
-      }
-    },
-    methods: {
-      login () {
-        this.$store.dispatch(this.$define.SERVICE.LOGIN.LOGIN_FORM.ACT_LOGIN, this.loginForm).then((info) => {
-          this.$router.replace('/')
+      console.log(this.loginForm)
+    }
+
+    login () {
+      LoginService.login(this.loginForm).then(() => {
+        this.$notify.success({
+          title: this.$t(this.lang + 'login_success_title').toString(),
+          message: this.$t(this.lang + 'login_success_content').toString() + AppInfoDefine.APP_NAME
         })
-      }
+      })
     }
   }
 </script>

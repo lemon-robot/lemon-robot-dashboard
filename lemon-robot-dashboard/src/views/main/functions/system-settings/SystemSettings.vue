@@ -4,9 +4,12 @@
   </div>
 </template>
 
-<script>
-  export default {
-    name: 'SystemSettings'
+<script lang="ts">
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
+
+  @Component
+  export default class SystemSettings extends Vue {
   }
 </script>
 

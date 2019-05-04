@@ -15,19 +15,20 @@
   </div>
 </template>
 
-<script>
-  import UserInfoPanel from './UserInfoPanel'
+<script lang="ts">
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
+  import UserInfoPanel from './UserInfoPanel.vue'
 
-  export default {
-    name: 'UserMenu',
-    components: { UserInfoPanel },
+  @Component({
+    components: {
+      UserInfoPanel
+    }
+  })
+  export default class UserMenu extends Vue {
+    lang = 'main.control_menu.user_menu.'
+
     mounted () {
-      console.log('LOGIN STATE: ' + this.$store.getters[this.$define.SERVICE.GLOBAL.USER.GET_LOGIN_STATE])
-    },
-    data () {
-      return {
-        lang: 'main.control_menu.user_menu.'
-      }
     }
   }
 </script>

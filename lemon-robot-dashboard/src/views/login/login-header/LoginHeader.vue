@@ -4,9 +4,10 @@
   </div>
 </template>
 
-<script>
-  export default {
-    name: 'LoginHeader'
+<script lang="ts">
+  import Vue from 'vue'
+
+  export default class LoginHeader extends Vue {
   }
 </script>
 

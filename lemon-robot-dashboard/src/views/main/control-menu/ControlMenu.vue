@@ -2,17 +2,24 @@
   <div class="control-menu-impl">
     <user-menu></user-menu>
     <function-menu class="function-menu"></function-menu>
-    <div class="info-area">LemonIT.CN</div>
+    <div class="info-area">{{appOrgName}}</div>
   </div>
 </template>
 
-<script>
-  import FunctionMenu from './function-menu/FunctionMenu'
-  import UserMenu from './user-menu/UserMenu'
+<script lang="ts">
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
+  import FunctionMenu from './function-menu/FunctionMenu.vue'
+  import UserMenu from './user-menu/UserMenu.vue'
+  import AppInfoDefine from '@/define/info/AppInfo'
 
-  export default {
-    name: 'ControlMenu',
-    components: { UserMenu, FunctionMenu }
+  @Component({
+    components: {
+      UserMenu, FunctionMenu
+    }
+  })
+  export default class ControlMenu extends Vue {
+    appOrgName = AppInfoDefine.APP_ORG_NAME
   }
 </script>
 

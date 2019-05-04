@@ -5,28 +5,28 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
+  import ControlMenu from './control-menu/ControlMenu.vue'
+  import LoginService from '@/service/login/LoginService'
 
-  import ControlMenu from './control-menu/ControlMenu'
+  @Component({
+    components: {
+      ControlMenu
+    }
+  })
+  export default class Main extends Vue {
+    lang = 'main.'
 
-  export default {
-    name: 'Login',
-    components: { ControlMenu },
     created () {
-      if (!this.$store.getters[this.$define.SERVICE.GLOBAL.USER.GET_LOGIN_STATE]) {
+      if (!LoginService.getLoginState()) {
         this.$notify({
-          title: this.$t(this.lang + 'not_login_tip_title'),
-          message: this.$t(this.lang + 'not_login_tip_message'),
+          title: this.$t(this.lang + 'not_login_tip_title').toString(),
+          message: this.$t(this.lang + 'not_login_tip_message').toString(),
           type: 'warning'
         })
         this.$router.replace('/login')
-      }
-    },
-    mounted () {
-    },
-    data () {
-      return {
-        lang: 'main.'
       }
     }
   }

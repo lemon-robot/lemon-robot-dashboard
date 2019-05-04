@@ -12,19 +12,16 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
   import mainRouterDefine from '@/router/main'
 
-  export default {
-    name: 'FunctionMenu',
-    data () {
-      return {
-        mainRouters: mainRouterDefine
-      }
-    },
+  @Component
+  export default class FunctionMenu extends Vue {
+    mainRouters = mainRouterDefine
+
     mounted () {
-      console.log(this.$router.options.routes)
-      console.log(mainRouterDefine.children)
     }
   }
 </script>

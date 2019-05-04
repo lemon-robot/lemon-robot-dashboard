@@ -9,15 +9,26 @@
   </div>
 </template>
 
-<script>
-  import LoginHeader from './login-header/LoginHeader'
-  import LoginFooter from './login-footer/LoginFooter'
-  import CompanyInfo from './company-info/CompanyInfo'
-  import LoginForm from './login-form/LoginForm'
+<script lang="ts">
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
+  import LoginHeader from './login-header/LoginHeader.vue'
+  import LoginFooter from './login-footer/LoginFooter.vue'
+  import CompanyInfo from './company-info/CompanyInfo.vue'
+  import LoginForm from './login-form/LoginForm.vue'
+  import LoginService from '@/service/login/LoginService'
 
-  export default {
-    name: 'Login',
-    components: { LoginForm, CompanyInfo, LoginFooter, LoginHeader }
+  @Component({
+    components: {
+      LoginForm, CompanyInfo, LoginFooter, LoginHeader
+    }
+  })
+  export default class Login extends Vue {
+    mounted () {
+      if (LoginService.getLoginState()) {
+        this.$router.replace('/')
+      }
+    }
   }
 </script>
 

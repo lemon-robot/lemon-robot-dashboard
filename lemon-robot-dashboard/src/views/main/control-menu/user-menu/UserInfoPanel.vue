@@ -4,19 +4,17 @@
   </div>
 </template>
 
-<script>
-  export default {
-    name: 'UserInfoPanel',
-    data () {
-      return {
-        lang: 'main.control_menu.user_menu.user_info_panel.'
-      }
-    },
-    methods: {
-      logoutNow () {
-        this.$store.commit(this.$define.SERVICE.GLOBAL.USER.MUT_LOGOUT)
-        this.$router.replace('/login')
-      }
+<script lang="ts">
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
+  import LoginService from '@/service/login/LoginService'
+
+  @Component
+  export default class UserInfoPanel extends Vue {
+    lang = 'main.control_menu.user_menu.user_info_panel.'
+
+    logoutNow () {
+      LoginService.logout()
     }
   }
 </script>
