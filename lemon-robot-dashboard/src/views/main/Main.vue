@@ -21,10 +21,9 @@
 
     created () {
       if (!LoginService.getLoginState()) {
-        this.$notify({
+        this.$notify.warning({
           title: this.$t(this.lang + 'not_login_tip_title').toString(),
-          message: this.$t(this.lang + 'not_login_tip_message').toString(),
-          type: 'warning'
+          message: this.$t(this.lang + 'not_login_tip_message').toString()
         })
         this.$router.replace('/login')
       }
