@@ -2,7 +2,7 @@ import LoginForm from '@/model/login/LoginForm'
 import axios from 'axios'
 import LoginFormReq from '@/dto/login/LoginFormReq'
 import StorageKeyDefineLogin from '@/define/storage/login'
-import UrlDefineUser from '@/define/url/user'
+import UrlDefineUser from '@/define/url/UrlDefineUser'
 import $store from '@/store'
 import NameUtil from '@/utils/NameUtil'
 import StoreDefineLogin from '@/define/store/login/login'
@@ -16,6 +16,9 @@ export default class LoginService {
             localStorage[StorageKeyDefineLogin.LOGIN_FORM_CACHE] = JSON.stringify(loginForm)
           }
           sessionStorage[StorageKeyDefineLogin.LOGIN_TOKEN] = resp.data.data
+          axios.defaults.headers = {
+            Authorization: 'Bearer ' + resp.data.data
+          }
           this.setStoreLoginState(true)
           resolve()
         }
@@ -35,7 +38,13 @@ export default class LoginService {
   }
 
   static getLoginState () {
-    const loginState = sessionStorage[StorageKeyDefineLogin.LOGIN_TOKEN] !== undefined
+    const loginToken = sessionStorage[StorageKeyDefineLogin.LOGIN_TOKEN]
+    const loginState = loginToken !== undefined
+    if (loginState) {
+      axios.defaults.headers = {
+        Authorization: 'Bearer ' + loginToken
+      }
+    }
     this.setStoreLoginState(loginState)
     return loginState
   }
