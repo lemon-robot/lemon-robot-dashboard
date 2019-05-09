@@ -11,6 +11,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import i18n from './i18n'
 import Vuex from 'vuex'
 import '@/assets/iconfont/iconfont.css'
+import LoginService from '@/service/login/LoginService'
 
 Vue.config.productionTip = false
 
@@ -46,6 +47,14 @@ axios.interceptors.response.use(function (response) {
   }
   return response
 }, function (error) {
+  if (error.response.status === 401) {
+    LoginService.logout()
+    const lang = 'resp_code.'
+    ElementUI.Notification.error({
+      title: i18n.t(lang + 'auth_401_title').toString(),
+      message: i18n.t(lang + 'auth_401_content').toString()
+    })
+  }
   return Promise.reject(error)
 })
 
