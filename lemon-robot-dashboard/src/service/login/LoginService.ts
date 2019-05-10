@@ -29,7 +29,7 @@ export default class LoginService {
   }
 
   private static setStoreLoginState (loginState: boolean) {
-    $store.commit(NameUtil.CalculateStoreComponentKey(StoreDefineLogin.SET_LOGIN_STATE), loginState)
+    $store.commit(NameUtil.CSCK(StoreDefineLogin.SET_LOGIN_STATE), loginState)
   }
 
   static logout () {

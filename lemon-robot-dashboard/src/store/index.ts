@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import login from './login/login'
+import login from './login'
+import main from './main'
 
 Vue.use(Vuex)
 
@@ -18,7 +19,8 @@ function findStoreModule (tree: any) {
 }
 
 findStoreModule({
-  login
+  login,
+  main
 })
 
 console.log(result)

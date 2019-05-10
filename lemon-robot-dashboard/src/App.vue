@@ -16,10 +16,11 @@
   export default class App extends Vue {
     mounted () {
       this.redirectWithLoginState(LoginService.getLoginState())
+      console.log(this.$store)
     }
 
     get loginState (): boolean {
-      return this.$store.getters[NameUtil.CalculateStoreComponentKey(StoreDefineLogin.GET_LOGIN_STATE)]
+      return this.$store.getters[NameUtil.CSCK(StoreDefineLogin.GET_LOGIN_STATE)]
     }
 
     @Watch('loginState')

@@ -4,8 +4,11 @@
       <div class="operator-item" @click="list()"><i class="el-icon-refresh"></i></div>
     </div>
     <div class="list-container">
-      <div class="server-node-item selected-item" v-for="serverNodeData in serverNodeList"
-           :key="serverNodeData.nodeInfo.machineSign">
+      <div
+        :class="'server-node-item ' + (serverNodeData.nodeInfo.machineSign === selectedServerNodeMachineSign ? 'selected-item' : '')"
+        v-for="serverNodeData in serverNodeList"
+        @click="selectServerNode(serverNodeData.nodeInfo.machineSign)"
+        :key="serverNodeData.nodeInfo.machineSign">
         <div class="left-area">
           <i :class="'os-icon el-icon-' + serverNodeData.nodeInfo.operateSystem"></i>
           <div class="left-bottom-area">
@@ -29,6 +32,8 @@
   import Component from 'vue-class-component'
   import ServerNodeService from '@/service/server-node/ServerNodeService'
   import ServerNodeResp from '@/dto/server-node/ServerNodeResp'
+  import NameUtil from '@/utils/NameUtil'
+  import StoreDefineDispatcherManager from '@/define/store/main/functions/dispatcher-manager'
 
   @Component
   export default class ServerNodeList extends Vue {
@@ -40,17 +45,30 @@
       this.list()
     }
 
+    selectServerNode (nodeMachineSign: string) {
+      this.$store.commit(
+        NameUtil.CSCK(StoreDefineDispatcherManager.SET_SELECTED_SERVER_NODE_MACHINE_SIGN),
+        nodeMachineSign
+      )
+    }
+
     list () {
       this.listLoading = true
       ServerNodeService.list()
         .then((data: ServerNodeResp[]) => {
           this.listLoading = false
           this.serverNodeList = data
+          if (data.length > 0) {
+            this.selectServerNode(data[0].nodeInfo.machineSign)
+          }
         })
         .catch(() => {
           this.listLoading = false
-          console.log('errerrerrerr')
         })
+    }
+
+    get selectedServerNodeMachineSign (): string {
+      return this.$store.getters[NameUtil.CSCK(StoreDefineDispatcherManager.GET_SELECTED_SERVER_NODE_MACHINE_SIGN)]
     }
   }
 </script>
@@ -82,6 +100,9 @@
     }
 
     .list-container {
+      display: flex;
+      flex-direction: row;
+      overflow: scroll;
 
       .server-node-item {
         --common-space: 15px;
@@ -91,6 +112,7 @@
         padding: var(--common-space);
         margin: var(--common-space) 0 var(--common-space) var(--common-space);
         cursor: pointer;
+        min-width: 480px;
 
         .left-area {
           padding-right: var(--common-space);
@@ -116,6 +138,10 @@
 
             .active-state-true {
               background: #2fc14f;
+            }
+
+            .active-state-false {
+              background: #aaaaaa;
             }
 
             .active-state-title {
