@@ -100,19 +100,21 @@
     }
 
     .list-container {
+      --common-space: 15px;
+      flex-grow: 1;
       display: flex;
       flex-direction: row;
       overflow: scroll;
+      padding-right: 30px;
 
       .server-node-item {
-        --common-space: 15px;
         display: flex;
         flex-direction: row;
         border: 1px solid var(--common-border-line-color);
         padding: var(--common-space);
         margin: var(--common-space) 0 var(--common-space) var(--common-space);
         cursor: pointer;
-        min-width: 480px;
+        width: 480px;
 
         .left-area {
           padding-right: var(--common-space);
@@ -159,6 +161,11 @@
             text-align: left;
           }
         }
+      }
+
+      .server-node-item:last-child {
+        background: red;
+        margin-right: 10px;
       }
 
       .selected-item {

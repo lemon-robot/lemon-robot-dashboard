@@ -1,6 +1,6 @@
 <template>
   <div class="dispatcher-manager-impl">
-    <server-node-list></server-node-list>
+    <server-node-list class="server-node-list"></server-node-list>
     <dispatcher-list class="dispatcher-list"></dispatcher-list>
   </div>
 </template>
@@ -35,6 +35,11 @@
   .dispatcher-manager-impl {
     display: flex;
     flex-direction: column;
+    align-content: stretch;
+
+    .server-node-list {
+      height: 150px;
+    }
 
     .dispatcher-list {
       flex-grow: 1;
