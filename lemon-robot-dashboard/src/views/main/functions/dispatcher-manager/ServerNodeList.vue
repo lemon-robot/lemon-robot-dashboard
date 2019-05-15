@@ -7,10 +7,13 @@
       <div
         :class="'server-node-item ' + (serverNodeData.nodeInfo.machineSign === selectedServerNodeMachineSign ? 'selected-item' : '')"
         v-for="serverNodeData in serverNodeList"
-        @click="selectServerNode(serverNodeData.nodeInfo.machineSign)"
+        @click="selectServerNode(serverNodeData)"
         :key="serverNodeData.nodeInfo.machineSign">
-        <div class="left-area">
-          <i :class="'os-icon el-icon-' + serverNodeData.nodeInfo.operateSystem"></i>
+        <div class="left-area need-show-os-icon">
+          <i
+            :class="'os-icon os-' + (serverNodeData.activeState ? serverNodeData.nodeInfo.operateSystem : 'offline') +
+             ' el-icon-' + serverNodeData.nodeInfo.operateSystem +
+              (serverNodeData.nodeInfo.operateSystem === 'linux' && serverNodeData.activeState ? '-online' : '')"></i>
           <div class="left-bottom-area">
             <div :class="'active-indicator active-state-' + serverNodeData.activeState"></div>
             <div class="active-state-title">{{$t(lang + 'active_' + serverNodeData.activeState)}}</div>
@@ -45,10 +48,10 @@
       this.list()
     }
 
-    selectServerNode (nodeMachineSign: string) {
+    selectServerNode (serverNode: ServerNodeResp) {
       this.$store.commit(
-        NameUtil.CSCK(StoreDefineDispatcherManager.SET_SELECTED_SERVER_NODE_MACHINE_SIGN),
-        nodeMachineSign
+        NameUtil.CSCK(StoreDefineDispatcherManager.SET_SELECTED_SERVER_NODE_INFO),
+        serverNode
       )
     }
 
@@ -59,7 +62,7 @@
           this.listLoading = false
           this.serverNodeList = data
           if (data.length > 0) {
-            this.selectServerNode(data[0].nodeInfo.machineSign)
+            this.selectServerNode(data[0])
           }
         })
         .catch(() => {
@@ -68,12 +71,14 @@
     }
 
     get selectedServerNodeMachineSign (): string {
-      return this.$store.getters[NameUtil.CSCK(StoreDefineDispatcherManager.GET_SELECTED_SERVER_NODE_MACHINE_SIGN)]
+      return this.$store.getters[NameUtil.CSCK(StoreDefineDispatcherManager.GET_SELECTED_SERVER_NODE_INFO)].nodeInfo.machineSign
     }
   }
 </script>
 
 <style scoped lang="scss">
+  @import "@/assets/common-style/os.scss";
+
   .server-node-list-impl {
     --common-border-line-color: #cccccc;
     background: #f0f0f0;
@@ -85,7 +90,7 @@
     .operator {
       display: flex;
       flex-direction: column;
-      width: 40px;
+      min-width: 40px;
       border-right: 1px solid var(--common-border-line-color);
 
       .operator-item {
@@ -105,15 +110,16 @@
       display: flex;
       flex-direction: row;
       overflow: scroll;
-      padding-right: 30px;
+      justify-content: space-between;
 
       .server-node-item {
         display: flex;
         flex-direction: row;
         border: 1px solid var(--common-border-line-color);
         padding: var(--common-space);
-        margin: var(--common-space) 0 var(--common-space) var(--common-space);
+        margin: var(--common-space) 15px var(--common-space) var(--common-space);
         cursor: pointer;
+        min-width: 480px;
         width: 480px;
 
         .left-area {
@@ -161,11 +167,6 @@
             text-align: left;
           }
         }
-      }
-
-      .server-node-item:last-child {
-        background: red;
-        margin-right: 10px;
       }
 
       .selected-item {

@@ -1,24 +1,23 @@
-import StoreDefineLogin from '@/define/store/login/login'
-import { Store, Commit, Dispatch } from 'vuex'
 import StoreDefineDispatcherManager from '@/define/store/main/functions/dispatcher-manager'
+import ServerNodeResp from '@/dto/server-node/ServerNodeResp'
 
 export interface State {
-  selectedServerNodeMachineSign: string
+  selectedServerNodeInfo: ServerNodeResp
 }
 
 const state: State = {
-  selectedServerNodeMachineSign: ''
+  selectedServerNodeInfo: new ServerNodeResp()
 }
 
 const getters = {
-  [StoreDefineDispatcherManager.GET_SELECTED_SERVER_NODE_MACHINE_SIGN] (state: State) {
-    return state.selectedServerNodeMachineSign
+  [StoreDefineDispatcherManager.GET_SELECTED_SERVER_NODE_INFO] (state: State) {
+    return state.selectedServerNodeInfo
   }
 }
 
 const mutations = {
-  [StoreDefineDispatcherManager.SET_SELECTED_SERVER_NODE_MACHINE_SIGN] (state: State, selectMachineSign: string) {
-    state.selectedServerNodeMachineSign = selectMachineSign
+  [StoreDefineDispatcherManager.SET_SELECTED_SERVER_NODE_INFO] (state: State, selectMachineInfo: ServerNodeResp) {
+    state.selectedServerNodeInfo = selectMachineInfo
   }
 }
 

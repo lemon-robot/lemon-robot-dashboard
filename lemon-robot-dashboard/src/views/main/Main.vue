@@ -45,6 +45,7 @@
     }
 
     .router-main-content {
+      overflow: hidden;
       flex-grow: 1;
     }
   }
