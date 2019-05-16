@@ -9,17 +9,42 @@
              ' el-icon-' + item.relationDispatcherMachine.operateSystem +
               (item.relationDispatcherMachine.operateSystem === 'linux' ? '-online' : '')"></i>
         <div class="content-area">
-          <div class="content-line">{{$t(lang + 'os') + item.relationDispatcherMachine.operateSystem}}</div>
           <div class="content-line">{{$t(lang + 'machine_sign') + item.relationDispatcherMachine.machineSign}}</div>
-          <div class="content-line">{{$t(lang + 'arch') + item.relationDispatcherMachine.cpuArch}}</div>
-          <div class="content-line">{{$t(lang + 'version') + item.relationDispatcherMachine.dispatcherVersion}}</div>
-          <div class="content-line">{{$t(lang + 'ip') + item.ipAddress}}</div>
-          <div class="os-water">
-            {{item.relationDispatcherMachine.operateSystem.toUpperCase()}}
-            <div class="alias-name">{{item.relationDispatcherMachine.alias === '' ?
-              $t(lang + 'alias_not_set') : item.relationDispatcherMachine.alias}}
+          <div class="content-line">
+            {{$t(lang + 'os') + item.relationDispatcherMachine.operateSystem}}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {{$t(lang + 'arch') + item.relationDispatcherMachine.cpuArch}}
+          </div>
+          <div class="content-line">
+            {{$t(lang + 'version') + item.relationDispatcherMachine.dispatcherVersion}}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {{$t(lang + 'ip') + item.ipAddress}}
+          </div>
+          <div class="tag-container">
+            <el-button type="primary" icon="el-icon-collection" size="small">{{$t(lang + 'edit_tags')}}</el-button>
+            <div class="tag-list">
+              <el-tag :key="tag.tagKey" v-for="tag in item.relationDispatcherMachine.tags">
+                {{tag.tagName}}
+              </el-tag>
+              <div class="tip"
+                   v-if="item.relationDispatcherMachine.tags === null || item.relationDispatcherMachine.tags.length ===0">
+                {{$t(lang + 'tags_empty_tip')}}
+              </div>
             </div>
           </div>
+        </div>
+        <div class="os-water">
+          {{item.relationDispatcherMachine.operateSystem.toUpperCase()}}
+          <div class="alias-name">{{item.relationDispatcherMachine.alias === '' ?
+            $t(lang + 'alias_not_set') : item.relationDispatcherMachine.alias}}
+          </div>
+        </div>
+        <div class="item-operator">
+          <el-tooltip class="item" effect="dark" :content="$t(lang + 'btn_set_alias_tip')" placement="top-end">
+            <v-btn small color="secondary" fab dark>
+              <v-icon>el-icon-edit-outline</v-icon>
+            </v-btn>
+          </el-tooltip>
         </div>
       </div>
     </div>
@@ -64,54 +89,79 @@
   .dispatcher-list-impl {
 
     .dispatcher-list-container {
-      --common-space: 10px;
+      $common-space: 14px;
 
       .dispatcher-item {
-        margin: var(--common-space) var(--common-space) 0 var(--common-space);
+        margin: $common-space $common-space * 1.5 0 $common-space * 1.5;
         border: 1px solid #cccccc;
         text-align: left;
         position: relative;
         overflow: hidden;
+        height: 146px;
+        border-top: 4px solid var(--primary);
 
         .os-icon {
           position: absolute;
-          bottom: -10px;
-          left: -8px;
-          font-size: 105px;
+          bottom: -16px;
+          left: -14px;
+          font-size: 120px;
           opacity: 0.4;
         }
 
         .content-area {
-          margin-left: 110px;
+          margin-left: 140px;
           position: relative;
 
           .content-line {
-            margin: 6px 0 0 0;
+            margin: 3px 0 0 0;
             font-size: 16px;
             color: #222222;
           }
 
-          .content-line:last-child {
-            margin-bottom: 10px;
+          .content-line:first-child {
+            margin-top: 10px;
           }
 
-          .os-water {
-            position: absolute;
-            right: 0;
-            top: -20px;
-            opacity: 0.1;
-            font-size: 60px;
+          .tag-container {
+            margin-right: 100px;
+            display: flex;
+            flex-direction: row;
+            margin-top: 8px;
 
-            .alias-name {
-              font-size: 20px;
-              text-align: right;
-              font-weight: bold;
-              margin-right: 10px;
-              margin-top: -14px;
+            .tag-list {
+              margin-left: 20px;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+
+              * {
+                margin-right: 10px;
+              }
             }
           }
         }
 
+        .os-water {
+          position: absolute;
+          right: 0;
+          top: -20px;
+          opacity: 0.1;
+          font-size: 60px;
+
+          .alias-name {
+            font-size: 20px;
+            text-align: right;
+            font-weight: bold;
+            margin-right: 10px;
+            margin-top: -14px;
+          }
+        }
+
+        .item-operator {
+          position: absolute;
+          right: 0;
+          bottom: 4px;
+        }
       }
     }
 
