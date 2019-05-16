@@ -1,5 +1,5 @@
 <template>
-  <div class="dispatcher-list-impl">
+  <div class="dispatcher-list-impl" v-loading="serverNodeDataRefreshState">
     <div class="dispatcher-list-container"
          v-if="selectedServerNodeInfo.activeState && selectedServerNodeInfo.nodeInfo.onlineDispatchers.length > 0">
       <div class="dispatcher-item need-show-os-icon" v-for="item in selectedServerNodeInfo.nodeInfo.onlineDispatchers"
@@ -10,6 +10,7 @@
               (item.relationDispatcherMachine.operateSystem === 'linux' ? '-online' : '')"></i>
         <div class="content-area">
           <div class="content-line">{{$t(lang + 'machine_sign') + item.relationDispatcherMachine.machineSign}}</div>
+          <div class="content-line">{{$t(lang + 'online_key') + item.onlineKey}}</div>
           <div class="content-line">
             {{$t(lang + 'os') + item.relationDispatcherMachine.operateSystem}}
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -64,7 +65,6 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import NameUtil from '@/utils/NameUtil'
-  import { Watch } from 'vue-property-decorator'
   import StoreDefineDispatcherManager from '@/define/store/main/functions/dispatcher-manager'
   import ServerNodeResp from '@/dto/server-node/ServerNodeResp'
 
@@ -76,9 +76,8 @@
       return this.$store.getters[NameUtil.CSCK(StoreDefineDispatcherManager.GET_SELECTED_SERVER_NODE_INFO)]
     }
 
-    @Watch('selectedServerNodeInfo')
-    onSelectedServerNodeChanged (selectedServerNode: ServerNodeResp) {
-      console.log('liuri  === ' + selectedServerNode.nodeInfo.machineSign)
+    get serverNodeDataRefreshState (): boolean {
+      return this.$store.getters[NameUtil.CSCK(StoreDefineDispatcherManager.GET_REFRESH_SERVER_NODE_STATE)]
     }
   }
 </script>
@@ -97,7 +96,7 @@
         text-align: left;
         position: relative;
         overflow: hidden;
-        height: 146px;
+        height: 168px;
         border-top: 4px solid var(--primary);
 
         .os-icon {
@@ -105,7 +104,7 @@
           bottom: -16px;
           left: -14px;
           font-size: 120px;
-          opacity: 0.4;
+          opacity: 0.3;
         }
 
         .content-area {
@@ -144,7 +143,7 @@
         .os-water {
           position: absolute;
           right: 0;
-          top: -20px;
+          top: -10px;
           opacity: 0.1;
           font-size: 60px;
 

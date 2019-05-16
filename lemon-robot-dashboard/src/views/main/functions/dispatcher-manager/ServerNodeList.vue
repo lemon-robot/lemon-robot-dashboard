@@ -1,5 +1,5 @@
 <template>
-  <div class="server-node-list-impl" v-loading="listLoading">
+  <div class="server-node-list-impl" v-loading="serverNodeDataRefreshState">
     <div class="operator">
       <div class="operator-item" @click="list()"><i class="el-icon-refresh"></i></div>
     </div>
@@ -56,22 +56,26 @@
     }
 
     list () {
-      this.listLoading = true
+      this.$store.commit(NameUtil.CSCK(StoreDefineDispatcherManager.SET_REFRESH_SERVER_NODE_STATE), true)
       ServerNodeService.list()
         .then((data: ServerNodeResp[]) => {
-          this.listLoading = false
+          this.$store.commit(NameUtil.CSCK(StoreDefineDispatcherManager.SET_REFRESH_SERVER_NODE_STATE), false)
           this.serverNodeList = data
           if (data.length > 0) {
             this.selectServerNode(data[0])
           }
         })
         .catch(() => {
-          this.listLoading = false
+          this.$store.commit(NameUtil.CSCK(StoreDefineDispatcherManager.SET_REFRESH_SERVER_NODE_STATE), false)
         })
     }
 
     get selectedServerNodeMachineSign (): string {
       return this.$store.getters[NameUtil.CSCK(StoreDefineDispatcherManager.GET_SELECTED_SERVER_NODE_INFO)].nodeInfo.machineSign
+    }
+
+    get serverNodeDataRefreshState (): boolean {
+      return this.$store.getters[NameUtil.CSCK(StoreDefineDispatcherManager.GET_REFRESH_SERVER_NODE_STATE)]
     }
   }
 </script>
