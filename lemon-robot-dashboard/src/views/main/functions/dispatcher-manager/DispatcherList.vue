@@ -36,9 +36,12 @@
         </div>
         <div class="os-water">
           {{item.relationDispatcherMachine.operateSystem.toUpperCase()}}
-          <div class="alias-name">{{item.relationDispatcherMachine.alias === '' ?
-            $t(lang + 'alias_not_set') : item.relationDispatcherMachine.alias}}
-          </div>
+          <!--          <div class="alias-name">{{item.relationDispatcherMachine.alias === '' ?-->
+          <!--            $t(lang + 'alias_not_set') : item.relationDispatcherMachine.alias}}-->
+          <!--          </div>-->
+          <v-text-field class="alias-name"
+                        :placeholder="$t(lang + 'alias_not_set')"
+                        v-model="aliasPool[item.relationDispatcherMachine.machineSign]"></v-text-field>
         </div>
         <div class="item-operator">
           <el-tooltip class="item" effect="dark" :content="$t(lang + 'btn_set_alias_tip')" placement="top-end">
@@ -65,12 +68,15 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import NameUtil from '@/utils/NameUtil'
+  import { Watch } from 'vue-property-decorator'
   import StoreDefineDispatcherManager from '@/define/store/main/functions/dispatcher-manager'
   import ServerNodeResp from '@/dto/server-node/ServerNodeResp'
+  import DispatcherOnline from '@/entity/DispatcherOnline'
 
   @Component
   export default class DispatcherList extends Vue {
     lang = 'main.functions.dispatcher_manager.dispatcher_list.'
+    aliasPool: any = {}
 
     get selectedServerNodeInfo (): ServerNodeResp {
       return this.$store.getters[NameUtil.CSCK(StoreDefineDispatcherManager.GET_SELECTED_SERVER_NODE_INFO)]
@@ -78,6 +84,14 @@
 
     get serverNodeDataRefreshState (): boolean {
       return this.$store.getters[NameUtil.CSCK(StoreDefineDispatcherManager.GET_REFRESH_SERVER_NODE_STATE)]
+    }
+
+    @Watch('selectedServerNodeInfo')
+    onSelectedServerNodeChanged (selectedServerNodeResp: ServerNodeResp) {
+      selectedServerNodeResp.nodeInfo.onlineDispatchers.forEach((dispatcher: DispatcherOnline, index: number) => {
+        this.aliasPool[dispatcher.relationDispatcherMachine.machineSign] = dispatcher.relationDispatcherMachine.alias
+      })
+      console.log(this.aliasPool)
     }
   }
 </script>
@@ -148,11 +162,19 @@
           font-size: 60px;
 
           .alias-name {
-            font-size: 20px;
+            font-size: 24px;
             text-align: right;
             font-weight: bold;
             margin-right: 10px;
-            margin-top: -14px;
+            margin-top: -16px;
+
+            * {
+              text-align: right;
+            }
+          }
+
+          .alias-name input {
+            text-align: right;
           }
         }
 
