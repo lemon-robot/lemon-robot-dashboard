@@ -12,8 +12,7 @@
         <div class="left-area need-show-os-icon">
           <i
             :class="'os-icon os-' + (serverNodeData.activeState ? serverNodeData.nodeInfo.operateSystem : 'offline') +
-             ' el-icon-' + serverNodeData.nodeInfo.operateSystem +
-              (serverNodeData.nodeInfo.operateSystem === 'linux' && serverNodeData.activeState ? '-online' : '')"></i>
+             ' el-icon-' + serverNodeData.nodeInfo.operateSystem"></i>
           <div class="left-bottom-area">
             <div :class="'active-indicator active-state-' + serverNodeData.activeState"></div>
             <div class="active-state-title">{{$t(lang + 'active_' + serverNodeData.activeState)}}</div>
@@ -34,7 +33,7 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import ServerNodeService from '@/service/server-node/ServerNodeService'
-  import ServerNodeResp from '@/dto/server-node/ServerNodeResp'
+  import ServerNodeResp from '@/dto/ServerNodeResp'
   import NameUtil from '@/utils/NameUtil'
   import StoreDefineDispatcherManager from '@/define/store/main/functions/dispatcher-manager'
 

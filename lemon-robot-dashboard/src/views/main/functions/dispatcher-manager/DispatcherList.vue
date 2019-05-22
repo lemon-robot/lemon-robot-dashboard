@@ -23,12 +23,14 @@
   import NameUtil from '@/utils/NameUtil'
   import { Watch } from 'vue-property-decorator'
   import StoreDefineDispatcherManager from '@/define/store/main/functions/dispatcher-manager'
-  import ServerNodeResp from '@/dto/server-node/ServerNodeResp'
+  import ServerNodeResp from '@/dto/ServerNodeResp'
   import DispatcherOnline from '@/entity/DispatcherOnline'
   import DispatcherItem from '@/views/main/functions/dispatcher-manager/dispatcher-item/DispatcherItem.vue'
 
   @Component({
-    components: {DispatcherItem}
+    components: {
+      DispatcherItem
+    }
   })
   export default class DispatcherList extends Vue {
     lang = 'main.functions.dispatcher_manager.dispatcher_list.'

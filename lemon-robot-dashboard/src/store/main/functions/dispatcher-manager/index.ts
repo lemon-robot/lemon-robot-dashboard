@@ -1,5 +1,5 @@
 import StoreDefineDispatcherManager from '@/define/store/main/functions/dispatcher-manager'
-import ServerNodeResp from '@/dto/server-node/ServerNodeResp'
+import ServerNodeResp from '@/dto/ServerNodeResp'
 
 export interface State {
   selectedServerNodeInfo: ServerNodeResp,

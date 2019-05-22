@@ -1,6 +1,6 @@
 import LoginForm from '@/model/login/LoginForm'
 import axios from 'axios'
-import LoginFormReq from '@/dto/login/LoginFormReq'
+import LrUserAuthReq from '@/dto/LrUserAuthReq'
 import StorageKeyDefineLogin from '@/define/storage/login'
 import UrlDefineUser from '@/define/url/UrlDefineUser'
 import $store from '@/store'
@@ -10,7 +10,7 @@ import StoreDefineLogin from '@/define/store/login/login'
 export default class LoginService {
   static login (loginForm: LoginForm) {
     return new Promise((resolve, reject) => {
-      axios.post(UrlDefineUser.LOGIN, new LoginFormReq(loginForm)).then((resp) => {
+      axios.post(UrlDefineUser.LOGIN, new LrUserAuthReq(loginForm)).then((resp) => {
         if (resp.data.success) {
           if (loginForm.rememberPassword) {
             localStorage[StorageKeyDefineLogin.LOGIN_FORM_CACHE] = JSON.stringify(loginForm)

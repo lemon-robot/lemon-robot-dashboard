@@ -2,8 +2,7 @@
   <div class="dispatcher-item-impl need-show-os-icon">
     <i
       :class="'os-icon os-' + dispatcherInfo.relationDispatcherMachine.operateSystem +
-             ' el-icon-' + dispatcherInfo.relationDispatcherMachine.operateSystem +
-              (dispatcherInfo.relationDispatcherMachine.operateSystem === 'linux' ? '-online' : '')"></i>
+             ' el-icon-' + dispatcherInfo.relationDispatcherMachine.operateSystem"></i>
     <div class="content-area">
       <div class="content-line">{{$t(lang + 'machine_sign') + dispatcherInfo.relationDispatcherMachine.machineSign}}
       </div>

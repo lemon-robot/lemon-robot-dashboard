@@ -1,5 +1,5 @@
 <template>
-  <div class="dispatcher-item-alias-editor-impl">
+  <div class="dispatcher-item-alias-editor-impl" :loadiing="true">
     <el-tooltip class="item" effect="dark" :content="$t(lang + 'btn_set_alias_tip')" placement="top-end">
       <v-btn small color="secondary" fab dark @click="showEditorState = true">
         <v-icon>el-icon-edit-outline</v-icon>
@@ -13,9 +13,11 @@
         </div>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="secondary" flat="flat" @click="showEditorState = false">{{$t(lang + 'cancel_btn_title')}}
+          <v-btn color="secondary" flat="flat" @click="showEditorState = false" :disabled="puttingState">{{$t(lang +
+            'cancel_btn_title')}}
           </v-btn>
-          <v-btn color="primary" flat="flat">{{$t(lang + 'ok_btn_title')}}</v-btn>
+          <v-btn color="primary" flat="flat" :loading="puttingState" :disabled="puttingState">{{$t(lang + 'ok_btn_title')}}
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -33,6 +35,7 @@
     lang = 'main.functions.dispatcher_manager.dispatcher_item.dispatcher_item_alias_editor.'
     showEditorState: boolean = false
     aliasData: string = ''
+    puttingState: boolean = true
     @Prop({
       type: Object as () => DispatcherOnline
     })

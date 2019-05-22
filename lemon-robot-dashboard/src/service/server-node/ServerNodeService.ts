@@ -1,4 +1,4 @@
-import ServerNodeResp from '@/dto/server-node/ServerNodeResp'
+import ServerNodeResp from '@/dto/ServerNodeResp'
 import Axios from 'axios'
 import UrlDefineServerNode from '@/define/url/UrlDefineServerNode'
 

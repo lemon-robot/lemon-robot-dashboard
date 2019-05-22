@@ -1,6 +1,6 @@
 import LoginForm from '@/model/login/LoginForm'
 
-export default class LoginFormReq {
+export default class LrUserAuthReq {
   number: string = '';
   password: string = '';
 
