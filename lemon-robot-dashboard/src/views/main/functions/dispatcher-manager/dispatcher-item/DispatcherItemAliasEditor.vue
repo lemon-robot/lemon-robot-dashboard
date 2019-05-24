@@ -16,7 +16,8 @@
           <v-btn color="secondary" flat="flat" @click="showEditorState = false" :disabled="puttingState">{{$t(lang +
             'cancel_btn_title')}}
           </v-btn>
-          <v-btn color="primary" flat="flat" :loading="puttingState" :disabled="puttingState">{{$t(lang + 'ok_btn_title')}}
+          <v-btn color="primary" @click="saveAlias" flat="flat" :loading="puttingState" :disabled="puttingState">
+            {{$t(lang + 'ok_btn_title')}}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -29,13 +30,15 @@
   import Component from 'vue-class-component'
   import { Prop } from 'vue-property-decorator'
   import DispatcherOnline from '@/entity/DispatcherOnline'
+  import DispatcherMachineService from '@/service/dispatcher/DispatcherMachineService'
+  import ServerNodeService from '@/service/server-node/ServerNodeService'
 
   @Component
   export default class DispatcherItemAliasEditor extends Vue {
     lang = 'main.functions.dispatcher_manager.dispatcher_item.dispatcher_item_alias_editor.'
     showEditorState: boolean = false
     aliasData: string = ''
-    puttingState: boolean = true
+    puttingState: boolean = false
     @Prop({
       type: Object as () => DispatcherOnline
     })
@@ -43,6 +46,18 @@
 
     mounted () {
       this.aliasData = this.dispatcherInfo.relationDispatcherMachine.alias
+    }
+
+    saveAlias () {
+      this.puttingState = true
+      DispatcherMachineService.SetAlias(this.dispatcherInfo.relationMachineSign, this.aliasData)
+        .then(() => {
+          this.puttingState = false
+          this.showEditorState = false
+        })
+        .catch(() => {
+          this.puttingState = false
+        })
     }
   }
 </script>
