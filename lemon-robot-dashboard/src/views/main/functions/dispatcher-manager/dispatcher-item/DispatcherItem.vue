@@ -18,7 +18,8 @@
         {{$t(lang + 'ip') + dispatcherInfo.ipAddress}}
       </div>
       <div class="tag-container">
-        <el-button type="primary" icon="el-icon-collection" size="small">{{$t(lang + 'edit_tags')}}</el-button>
+        <!--<el-button type="primary" icon="el-icon-collection" size="small" @click="dialog = true">{{$t(lang + 'edit_tags')}}</el-button>-->
+        <dispatcher-item-tag-editor :dispatcher-info="dispatcherInfo"></dispatcher-item-tag-editor>
         <div class="tag-list">
           <el-tag :key="tag.tagKey" v-for="tag in dispatcherInfo.relationDispatcherMachine.tags">
             {{tag.tagName}}
@@ -48,9 +49,10 @@
   import DispatcherOnline from '@/entity/DispatcherOnline'
   import DispatcherItemAliasEditor
     from '@/views/main/functions/dispatcher-manager/dispatcher-item/DispatcherItemAliasEditor.vue'
+  import DispatcherItemTagEditor from "@/views/main/functions/dispatcher-manager/dispatcher-item/DispatcherItemTagEditor";
 
   @Component({
-    components: { DispatcherItemAliasEditor },
+    components: {DispatcherItemTagEditor, DispatcherItemAliasEditor },
     props: {
       dispatcherInfo: Object as () => DispatcherOnline
     }
