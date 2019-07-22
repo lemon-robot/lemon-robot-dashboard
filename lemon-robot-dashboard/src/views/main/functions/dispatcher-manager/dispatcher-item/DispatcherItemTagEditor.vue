@@ -35,15 +35,15 @@ import DispatcherTransferItem from '@/model/dispatcher/DispatcherTransferItem'
 
 @Component
 export default class DispatchItemTagEditor extends Vue {
-  lang = 'main.functions.dispatcher_manager.dispatcher_item.dispatcher_item_tag_editor.'
+  readonly lang: string = 'main.functions.dispatcher_manager.dispatcher_item.dispatcher_item_tag_editor.'
+  readonly btnSize: string = 'small'
   loading: boolean = true
   showEditorState: boolean = false
-  selectedTagKeys = []
-  allTags = []
-  cacheTagKeys = []
-  tagMap = new Map()
-  readonly btnSize = 'small'
   okBtnIsDisabled: boolean = true
+  selectedTagKeys: Array<any> = []
+  allTags: Array<any> = []
+  cacheTagKeys: Array<any> = []
+  tagMap = new Map()
   @Prop()
   private dispatcherInfo!: DispatcherOnline
 
@@ -53,7 +53,7 @@ export default class DispatchItemTagEditor extends Vue {
     this.okBtnIsDisabled = true
     DispatcherMachineService.GetTags()
       .then(resp => {
-        this.formDataTags(resp.data)
+        this.formDataTags((resp as any).data)
         this.loading = false
       })
       .catch(err => {
@@ -68,13 +68,15 @@ export default class DispatchItemTagEditor extends Vue {
     const tagKeys = this.selectedTagKeys
     DispatcherMachineService.SetTags(machineSign, tagKeys)
       .then(resp => {
-        this.$notify.success({
-          title: this.$t(this.lang + 'set_tags_success_title').toString(),
-          message: this.$t(this.lang + 'set_tags_success_content').toString()
-        })
-        this.dispatcherInfo.relationDispatcherMachine.tags = newTags
-        this.loading = false
-        this.showEditorState = false
+        if(resp){
+          this.$notify.success({
+            title: this.$t(this.lang + 'set_tags_success_title').toString(),
+            message: this.$t(this.lang + 'set_tags_success_content').toString()
+          })
+          this.dispatcherInfo.relationDispatcherMachine.tags = newTags
+          this.loading = false
+          this.showEditorState = false
+        }
       })
       .catch(err => {
         console.log(err)
@@ -98,14 +100,14 @@ export default class DispatchItemTagEditor extends Vue {
   private formDataTags(tags: DispatcherTag[]) {
     // all tags
     this.allTags = []
-    for (let tag: DispatcherTag of tags) {
+    for (let tag of tags) {
       this.tagMap.set(tag.tagKey, tag)
       this.allTags.push(new DispatcherTransferItem(tag.tagKey, tag.tagName, false))
     }
     // current tags
     const currentTags = this.dispatcherInfo.relationDispatcherMachine.tags
     this.selectedTagKeys = []
-    for (let tag: DispatcherTag of currentTags) {
+    for (let tag of currentTags) {
       this.selectedTagKeys.push(tag.tagKey)
       this.cacheTagKeys = this.selectedTagKeys
     }

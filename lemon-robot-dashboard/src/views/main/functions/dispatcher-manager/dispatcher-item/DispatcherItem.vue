@@ -49,10 +49,10 @@
   import DispatcherOnline from '@/entity/DispatcherOnline'
   import DispatcherItemAliasEditor
     from '@/views/main/functions/dispatcher-manager/dispatcher-item/DispatcherItemAliasEditor.vue'
-  import DispatcherItemTagEditor from "@/views/main/functions/dispatcher-manager/dispatcher-item/DispatcherItemTagEditor";
+  import DispatcherItemTagEditor from '@/views/main/functions/dispatcher-manager/dispatcher-item/DispatcherItemTagEditor.vue'
 
   @Component({
-    components: {DispatcherItemTagEditor, DispatcherItemAliasEditor },
+    components: { DispatcherItemTagEditor, DispatcherItemAliasEditor },
     props: {
       dispatcherInfo: Object as () => DispatcherOnline
     }
