@@ -5,7 +5,7 @@ import DispatcherMachineSetTagsReq from '@/dto/DispatcherMachineSetTagsReq'
 import {reject, resolve} from "q";
 
 export default class DispatcherMachineService {
-  static SetAlias (machineSign: string, alias: string) {
+  static SetAlias(machineSign: string, alias: string) {
     return new Promise((resolve, reject) => {
       Axios.put(UrlDefineDispatcherMachine.PUT_ALIAS, new CommonMachineSetAliasReq(machineSign, alias))
         .then(resp => {
@@ -17,7 +17,7 @@ export default class DispatcherMachineService {
     })
   }
 
-  static SetTags (machineSign: string, tagKeys: string[]) {
+  static SetTags(machineSign: string, tagKeys: string[]) {
     let req = new DispatcherMachineSetTagsReq(machineSign)
     req.tagKeys = tagKeys
     return new Promise((resolve, reject) => {
@@ -31,18 +31,23 @@ export default class DispatcherMachineService {
     })
   }
 
-  static GetTags () {
+  static GetTags() {
     return new Promise((resolve, reject) => {
       Axios.get(UrlDefineDispatcherMachine.GET_TAGS)
-        .then(resp=> {
+        .then(resp => {
           // if(resp.data.success){
           //   resolve(resp.data.data)
           // }
           resolve(resp.data)
         })
-        .catch(err=> {
+        .catch(err => {
           reject(err)
         })
     })
   }
+
+  static CreateTags() {
+
+  }
+
 }

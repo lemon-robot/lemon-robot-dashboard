@@ -3,17 +3,17 @@
     <el-button type="primary" icon="el-icon-collection" :size="btnSize" @click="getTags">{{$t(lang + 'edit_tags')}}
     </el-button>
     <el-dialog
-      class="tag-editor-dialog"
-      :title="$t(lang+'editor_dialog_title')"
-      :visible.sync="showEditorState"
-      v-loading="loading"
-      width="30%"
+        class="tag-editor-dialog"
+        :title="$t(lang+'editor_dialog_title')"
+        :visible.sync="showEditorState"
+        v-loading="loading"
+        width="30%"
     >
       <el-transfer
-        v-model="selectedTagKeys"
-        :data="allTags"
-        :titles="[$t(lang+'transfer_left_title'), $t(lang+'transfer_right_title')]"
-        @change="handelChange"
+          v-model="selectedTagKeys"
+          :data="allTags"
+          :titles="[$t(lang+'transfer_left_title'), $t(lang+'transfer_right_title')]"
+          @change="handelChange"
       ></el-transfer>
       <span slot="footer" class="tag-editor-dialog-footer">
         <el-button class="manage-btn" type="primary" icon="el-icon-edit" :size="btnSize">{{$t(lang + 'manage_btn_title')}}</el-button>
