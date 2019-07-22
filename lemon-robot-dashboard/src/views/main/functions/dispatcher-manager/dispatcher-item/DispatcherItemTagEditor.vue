@@ -12,8 +12,8 @@
       <el-transfer
         v-model="selectedTagKeys"
         :data="allTags"
-        :titles = "[$t(lang+'transfer_left_title'), $t(lang+'transfer_right_title')]"
-        @change = "handelChange"
+        :titles="[$t(lang+'transfer_left_title'), $t(lang+'transfer_right_title')]"
+        @change="handelChange"
       ></el-transfer>
       <span slot="footer" class="tag-editor-dialog-footer">
         <el-button class="manage-btn" type="primary" icon="el-icon-edit" :size="btnSize">{{$t(lang + 'manage_btn_title')}}</el-button>
@@ -57,7 +57,7 @@ export default class DispatchItemTagEditor extends Vue {
         this.loading = false
       })
       .catch(err => {
-        console.log(err);
+        console.log(err)
       })
   }
 
@@ -68,7 +68,7 @@ export default class DispatchItemTagEditor extends Vue {
     const tagKeys = this.selectedTagKeys
     DispatcherMachineService.SetTags(machineSign, tagKeys)
       .then(resp => {
-        if(resp){
+        if (resp) {
           this.$notify.success({
             title: this.$t(this.lang + 'set_tags_success_title').toString(),
             message: this.$t(this.lang + 'set_tags_success_content').toString()
@@ -120,14 +120,15 @@ export default class DispatchItemTagEditor extends Vue {
 </script>
 
 <style scoped lang="scss">
-.tag-editor-container{
-  .tag-editor-dialog{
-    .tag-editor-dialog-footer{
-      width: 100%;
-      .manage-btn{
-        float: left;
+  .tag-editor-container {
+    .tag-editor-dialog {
+      .tag-editor-dialog-footer {
+        width: 100%;
+
+        .manage-btn {
+          float: left;
+        }
       }
     }
   }
-}
 </style>
