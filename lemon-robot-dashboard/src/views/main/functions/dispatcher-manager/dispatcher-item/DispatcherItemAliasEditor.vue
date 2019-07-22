@@ -42,7 +42,7 @@
     @Prop({
       type: Object as () => DispatcherOnline
     })
-    private readonly dispatcherInfo!: DispatcherOnline
+    private dispatcherInfo!: DispatcherOnline
 
     mounted () {
       this.aliasData = this.dispatcherInfo.relationDispatcherMachine.alias
@@ -54,6 +54,7 @@
         .then(() => {
           this.puttingState = false
           this.showEditorState = false
+          this.dispatcherInfo.relationDispatcherMachine.alias = this.aliasData
         })
         .catch(() => {
           this.puttingState = false

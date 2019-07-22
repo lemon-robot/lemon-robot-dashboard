@@ -5,6 +5,16 @@ const mainChildren = [
     name: 'dispatcher_manager'
   },
   {
+    path: 'task-manager',
+    component: () => import('@/views/main/functions/task-manager/Task.vue'),
+    name: 'task_manager'
+  },
+  {
+    path: 'environment-manager',
+    component: () => import('@/views/main/functions/environment-manager/EnvironmentManager.vue'),
+    name: 'environment_manager'
+  },
+  {
     path: 'user-manager',
     component: () => import('@/views/main/functions/user-manager/UserManager.vue'),
     name: 'user_manager'
