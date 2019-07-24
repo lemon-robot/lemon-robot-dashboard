@@ -8,18 +8,16 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import TagsSettingDialog from '@/views/main/functions/system-settings/tags-setting/TagsSettingDialog.vue'
+import TagsSettingDialog from '@/views/main/functions/system-settings/tag-setting/TagSettingDialog.vue'
 import NameUtil from '@/utils/NameUtil'
-import StoreDefineTagsSetting from '@/define/store/main/functions/system-settings'
+import StoreDefineTagSetting from '@/define/store/main/functions/system-settings'
 
 @Component({
   components: {TagsSettingDialog}
 })
 export default class TagsSetting extends Vue {
-  tagsSettingDialogVisible: boolean = true
-
   showTagsSettingDialog() {
-    this.$store.commit(NameUtil.CSCK(StoreDefineTagsSetting.SET_TAGS_SETTING_DIALOG_VISIBLE), true)
+    this.$store.commit(NameUtil.CSCK(StoreDefineTagSetting.SET_TAG_SETTING_DIALOG_VISIBLE), true)
   }
 }
 </script>

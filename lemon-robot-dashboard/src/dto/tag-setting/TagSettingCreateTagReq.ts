@@ -1,4 +1,4 @@
-export default class SystemSettingsCreateTagReq {
+export default class TagSettingCreateTagReq {
   tagName: string
 
   constructor(tagName: string) {

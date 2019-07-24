@@ -1,5 +1,5 @@
-import tagsSetting from './tags-setting'
+import tagSetting from './tag-setting'
 
 export default {
-  tags_setting: tagsSetting
+  tag_setting: tagSetting
 }

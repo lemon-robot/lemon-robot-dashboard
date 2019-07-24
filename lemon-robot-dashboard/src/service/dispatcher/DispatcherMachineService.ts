@@ -30,24 +30,4 @@ export default class DispatcherMachineService {
         })
     })
   }
-
-  static GetTags() {
-    return new Promise((resolve, reject) => {
-      Axios.get(UrlDefineDispatcherMachine.GET_TAGS)
-        .then(resp => {
-          // if(resp.data.success){
-          //   resolve(resp.data.data)
-          // }
-          resolve(resp.data)
-        })
-        .catch(err => {
-          reject(err)
-        })
-    })
-  }
-
-  static CreateTags() {
-
-  }
-
 }

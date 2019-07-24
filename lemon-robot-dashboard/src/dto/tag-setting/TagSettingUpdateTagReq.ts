@@ -1,6 +1,6 @@
-import DispatcherTag from '@/entity/DispatcherTag'
+import DispatcherTag from '../../entity/DispatcherTag'
 
-export default class SystemSettingsUpdateTagReq {
+export default class TagSettingUpdateTagReq {
   tagName: string
   tagKey: string
 
