@@ -6,8 +6,13 @@ const mainChildren = [
   },
   {
     path: 'task-manager',
-    component: () => import('@/views/main/functions/task-manager/Task.vue'),
+    component: () => import('@/views/main/functions/task-manager/TaskManager.vue'),
     name: 'task_manager'
+  },
+  {
+    path: 'plan-manager',
+    component: () => import('@/views/main/functions/plan-manager/PlanManager.vue'),
+    name: 'plan_manager'
   },
   {
     path: 'environment-manager',
