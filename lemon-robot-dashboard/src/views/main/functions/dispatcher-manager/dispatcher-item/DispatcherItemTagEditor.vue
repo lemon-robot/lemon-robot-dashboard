@@ -18,11 +18,11 @@
           v-loading="loading"
       ></el-transfer>
       <span slot="footer" class="tag-editor-dialog-footer">
-        <el-button class="manage-btn" type="primary" icon="el-icon-edit" :size="btnSize" :loading="loading"
-                   @click="showTagSettingDialog">{{$t(lang + 'manage_btn_title')}}</el-button>
-        <el-button :size="btnSize" :loading="loading"
-                   @click="hideTagEditorDialog">{{$t(lang + 'cancel_btn_title')}}</el-button>
-        <el-button type="primary" :size="btnSize" :disabled="okBtnIsDisabled" :loading="loading" @click="setTags">{{$t(lang + 'ok_btn_title')}}</el-button>
+        <v-btn class="manage-btn ma-2 tile" outlined color="success" :loading="loading" small @click="showTagSettingDialog">
+           {{$t(lang+'manage_btn_title')}}
+        </v-btn>
+        <v-btn small :loading="loading" @click="hideTagEditorDialog">{{$t(lang+'cancel_btn_title')}}</v-btn>
+        <v-btn color="info" small :loading="loading" :disabled="okBtnIsDisabled" @click="setTags">{{$t(lang+'ok_btn_title')}}</v-btn>
       </span>
     </el-dialog>
     <tag-setting-dialog></tag-setting-dialog>

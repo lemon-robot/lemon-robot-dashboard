@@ -7,21 +7,32 @@
         :before-close="hideTagSettingDialog"
         :close-on-click-modal="false"
     >
-      <div class="tag-list" v-loading="loading">
-        <el-row class="tag-item">
+      <table class="tag-setting-dialog-body" v-loading="loading">
+        <thead>
+        <el-row class="tag-create-item">
           <el-col :span="18">
-            <el-input class="tag-input" size="small" :placeholder="$t(lang+'create_tag_placeholder')"
-                      v-model="newTagName"></el-input>
+            <!--<el-input class="tag-input" size="small" :placeholder="$t(lang+'create_tag_placeholder')"-->
+            <!--v-model="newTagName"></el-input>-->
+            <v-text-field
+                :label="$t(lang+'create_tag_placeholder')"
+                autofocus
+                hide-details
+                height="40px"
+                v-model="newTagName"
+            ></v-text-field>
           </el-col>
           <el-col :span="6">
             <v-btn color="info" small @click="createTag">{{$t(lang+'create_tag_title')}}</v-btn>
           </el-col>
         </el-row>
-        <el-row class="tag-item" :key="tag.tagKey" v-for="(tag, $index) in allTags">
+        </thead>
+        <tbody class="tag-list">
+        <tr class="tag-item" :key="tag.tagKey" v-for="(tag, $index) in allTags">
           <el-col :span="18">
-            <el-input class="tag-input" size="small" v-model="tag.tagName" :disabled="tag.disabled"></el-input>
+            <v-text-field height="40px" hide-details single-line v-model="tag.tagName"
+                          :disabled="tag.disabled"></v-text-field>
           </el-col>
-          <el-col :span="6">
+          <el-col class="tag-item-tool" :span="6">
             <v-btn v-if="tag.disabled" color="info" flat small icon @click="editTag(tag)">
               <v-icon>edit</v-icon>
             </v-btn>
@@ -32,8 +43,9 @@
               <v-icon>delete</v-icon>
             </v-btn>
           </el-col>
-        </el-row>
-      </div>
+        </tr>
+        </tbody>
+      </table>
       <span slot="footer" class="dialog-footer">
     <!--<v-btn small @click="hideTagSettingDialog">{{$t(lang+'cancel_btn_title')}}</v-btn>-->
         <v-btn color="success" small @click="hideTagSettingDialog">{{$t(lang+'ok_btn_title')}}</v-btn>
@@ -208,5 +220,54 @@ export default class TagsSettingDialog extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
+  .tag-setting-dialog {
+    text-align: left;
+    .tag-setting-dialog-body {
+      width: 100%;
+      .tag-create-item {
+        margin: 5px 0;
+        .v-text-field {
+          padding-top: 0;
+          margin-top: 0;
+        }
+      }
+      .tag-list {
+        height: 200px;
+        overflow: auto;
+        .tag-item {
+          border-radius: 5px;
+          &:nth-child(odd) {
+            background-color: #f0f0f0;
+          }
+          .el-col {
+            .v-text-field {
+              padding-top: 0;
+              padding-left: 6px;
+              margin-top: 0;
+              .v-input__slot {
+                &:before {
+                  border: none;
+                }
+              }
+            }
+          }
+          .tag-item-tool{
+            position: relative;
+            right: -40px;
+            transform: scale(0.4);
+            opacity: 0;
+            transition: all 0.2s ease-in-out;
+          }
+          &:hover{
+            .tag-item-tool{
+              right: 0;
+              transform: scale(1);
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
 </style>

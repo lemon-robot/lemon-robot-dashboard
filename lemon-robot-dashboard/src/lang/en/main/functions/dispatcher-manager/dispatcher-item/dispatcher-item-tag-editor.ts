@@ -5,7 +5,7 @@ export default {
   ok_btn_title: 'OK',
   transfer_left_title: 'All tags',
   transfer_right_title: 'Selected tags',
-  manage_btn_title: 'Manage',
+  manage_btn_title: 'Manage all tags',
   set_tags_success_title: 'Set tags',
   set_tags_success_content: 'success'
 }
