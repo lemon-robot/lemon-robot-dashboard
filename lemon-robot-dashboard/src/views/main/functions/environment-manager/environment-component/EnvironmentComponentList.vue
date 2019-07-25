@@ -63,8 +63,8 @@ export default class EnvironmentComponentList extends Vue {
 
       .component-item {
         padding: 0px 10px;
-        width: 70%;
-        height: 60px;
+        width: 100%;
+        height: 80px;
         border: 1px solid #cccccc;
         border-radius: 10px;
         border-top: 4px solid var(--primary);
