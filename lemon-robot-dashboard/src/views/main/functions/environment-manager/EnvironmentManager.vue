@@ -8,8 +8,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import EnvironmentAddComp from './EnvironmentComponentAdd.vue'
-import EnvironmentComponentList from './EnvironmentComponentList.vue'
+import EnvironmentAddComp from './environment-component/EnvironmentComponentAdd.vue'
+import EnvironmentComponentList from './environment-component/EnvironmentComponentList.vue'
 
 @Component({
   components: {
