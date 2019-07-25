@@ -1,19 +1,54 @@
 <template>
   <div class="environment-manager-impl">
-    <environment-add-comp></environment-add-comp>
-    <environment-component-list></environment-component-list>
+    <!--<v-tabs>-->
+      <!--<v-tab>Item One</v-tab>-->
+      <!--<v-tab>Item Two</v-tab>-->
+      <!--<v-tab-item>-->
+        <!--<v-card>-->
+          <!--<environment-component-add></environment-component-add>-->
+          <!--<environment-component-list></environment-component-list>-->
+        <!--</v-card>-->
+        <!--<v-card></v-card>-->
+      <!--</v-tab-item>-->
+    <!--</v-tabs>-->
+    <!--<environment-component-add></environment-component-add>-->
+    <!--<environment-component-list></environment-component-list>-->
+
+    <v-card class="environment-component-view">
+      <v-tabs vertical class="v-tabs-content">
+          <v-tab>
+            <v-icon left>mdi-account</v-icon>
+            Environment-Component
+          </v-tab>
+          <v-tab>
+            <v-icon left>mdi-lock</v-icon>
+            Runtime-Environment
+          </v-tab>
+        <v-tab-item>
+          <v-card flat>
+            <environment-component-add></environment-component-add>
+            <environment-component-list></environment-component-list>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat>
+            未完待續！！！
+          </v-card>
+        </v-tab-item>
+      </v-tabs>
+    </v-card>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import EnvironmentAddComp from './environment-component/EnvironmentComponentAdd.vue'
+import EnvironmentComponentAdd from './environment-component/EnvironmentComponentAdd.vue'
 import EnvironmentComponentList from './environment-component/EnvironmentComponentList.vue'
 
 @Component({
   components: {
-    EnvironmentAddComp, EnvironmentComponentList
+    EnvironmentComponentAdd, EnvironmentComponentList
   }
 })
 export default class EnvironmentManager extends Vue {
@@ -24,5 +59,24 @@ export default class EnvironmentManager extends Vue {
   .environment-manager-impl {
     display: flex;
     flex-direction: column;
+    height: 100%;
+    .environment-component-view{
+      height: 100%;
+    }
+  }
+</style>
+<style lang="scss">
+  .environment-manager-impl {
+    .environment-component-view{
+      .v-tabs__container{
+        background: #f0f0f0 !important;
+        .v-tabs__slider-wrapper{
+          .accent{
+            background: var(--primary) !important;
+            border: 1px solid var(--primary) !important;
+          }
+        }
+      }
+    }
   }
 </style>
