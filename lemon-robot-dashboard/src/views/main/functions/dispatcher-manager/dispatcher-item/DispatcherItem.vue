@@ -44,22 +44,23 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-  import DispatcherOnline from '@/entity/DispatcherOnline'
-  import DispatcherItemAliasEditor
-    from '@/views/main/functions/dispatcher-manager/dispatcher-item/DispatcherItemAliasEditor.vue'
-  import DispatcherItemTagEditor from '@/views/main/functions/dispatcher-manager/dispatcher-item/DispatcherItemTagEditor.vue'
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import DispatcherOnline from '@/entity/DispatcherOnline'
+import DispatcherItemAliasEditor
+  from '@/views/main/functions/dispatcher-manager/dispatcher-item/DispatcherItemAliasEditor.vue'
+import DispatcherItemTagEditor
+  from '@/views/main/functions/dispatcher-manager/dispatcher-item/DispatcherItemTagEditor.vue'
 
-  @Component({
-    components: { DispatcherItemTagEditor, DispatcherItemAliasEditor },
-    props: {
-      dispatcherInfo: Object as () => DispatcherOnline
-    }
-  })
-  export default class DispatcherItem extends Vue {
-    lang = 'main.functions.dispatcher_manager.dispatcher_item.'
+@Component({
+  components: {DispatcherItemTagEditor, DispatcherItemAliasEditor},
+  props: {
+    dispatcherInfo: Object as () => DispatcherOnline
   }
+})
+export default class DispatcherItem extends Vue {
+  lang = 'main.functions.dispatcher_manager.dispatcher_item.'
+}
 </script>
 
 <style scoped lang="scss">
