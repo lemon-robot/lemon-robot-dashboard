@@ -2,7 +2,6 @@ import Axios from 'axios'
 import UrlDefineDispatcherMachine from '@/define/url/UrlDefineDispatcherMachine'
 import CommonMachineSetAliasReq from '@/dto/CommonMachineSetAliasReq'
 import DispatcherMachineSetTagsReq from '@/dto/DispatcherMachineSetTagsReq'
-import {reject, resolve} from "q";
 
 export default class DispatcherMachineService {
   static SetAlias(machineSign: string, alias: string) {

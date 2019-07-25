@@ -7,4 +7,3 @@ export default {
   environment_manager: environmentManager,
   system_settings: systemSettings
 }
-
