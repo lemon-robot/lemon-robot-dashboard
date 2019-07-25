@@ -72,6 +72,7 @@ export default class EnvironmentComponentAdd extends Vue {
   .environment-add-comp {
     display: flex;
     justify-content: flex-start;
+    padding: 10px 10px;
 
     .add-center {
       margin: 0 25px;

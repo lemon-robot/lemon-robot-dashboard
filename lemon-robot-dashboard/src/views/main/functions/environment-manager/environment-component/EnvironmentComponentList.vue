@@ -51,7 +51,7 @@ export default class EnvironmentComponentList extends Vue {
 
 <style scoped lang="scss">
   .environment-component-list {
-    padding: 10px 0;
+    padding: 10px 10px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
