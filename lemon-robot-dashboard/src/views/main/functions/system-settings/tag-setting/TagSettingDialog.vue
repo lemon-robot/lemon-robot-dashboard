@@ -49,19 +49,17 @@ import NameUtil from '@/utils/NameUtil'
 import StoreDefineTagSetting from '@/define/store/main/functions/system-settings'
 import {Watch} from 'vue-property-decorator'
 import TagSettingService from '@/service/system-settings/TagSettingService'
+import TagSettingDialogItem from '@/model/system-settings/TagSettingDialogItem'
 
 @Component
 export default class TagsSettingDialog extends Vue {
   readonly lang: string = 'main.functions.system_settings.tag_setting.'
   dialogVisible: boolean = false
-  allTags: Array<any> = []
+  allTags: TagSettingDialogItem[] = []
   newTagName: string = ''
   cacheTagsMap = new Map()
   loading: boolean = false
-
-  // mounted() {
-  //   this.setTagChangeState(false)
-  // }
+  tagChangeState: boolean = false
 
   get tagSettingDialogVisible(): boolean {
     return this.$store.getters[NameUtil.CSCK(StoreDefineTagSetting.GET_TAG_SETTING_DIALOG_VISIBLE)]
@@ -69,6 +67,9 @@ export default class TagsSettingDialog extends Vue {
 
   hideTagSettingDialog() {
     this.$store.commit(NameUtil.CSCK(StoreDefineTagSetting.SET_TAG_SETTING_DIALOG_VISIBLE), false)
+    if (this.tagChangeState) {
+      this.setTagChangeState(2)
+    }
   }
 
   @Watch('tagSettingDialogVisible')
@@ -80,12 +81,12 @@ export default class TagsSettingDialog extends Vue {
   }
 
   getTags() {
+    this.allTags = []
     this.loading = true
     TagSettingService.GetTags()
       .then(resp => {
-        this.allTags = (resp as any).data
-        for (let tag of this.allTags) {
-          this.$set(tag, 'disabled', true)
+        for (let tag of resp) {
+          this.allTags.push(new TagSettingDialogItem(tag))
         }
         this.loading = false
         this.cacheTags()
@@ -109,7 +110,8 @@ export default class TagsSettingDialog extends Vue {
             message: this.$t(this.lang + 'create_tag_success_content').toString()
           })
           this.newTagName = ''
-          this.setTagChangeState(true)
+          // this.setTagChangeState(true)
+          this.tagChangeState = true
           this.getTags()
         }
       })
@@ -137,7 +139,8 @@ export default class TagsSettingDialog extends Vue {
             message: this.$t(this.lang + 'update_tag_success_content').toString()
           })
           this.cacheTags()
-          this.setTagChangeState(true)
+          // this.setTagChangeState(true)
+          this.tagChangeState = true
         } else {
           // 如果tag修改失败，页面数据回滚
           tag.tagName = this.cacheTagsMap.get(tag.tagKey)
@@ -159,7 +162,7 @@ export default class TagsSettingDialog extends Vue {
             message: this.$t(this.lang + 'delete_tag_success_content').toString()
           })
           this.allTags.splice(index, 1)
-          this.setTagChangeState(true)
+          this.tagChangeState = true
           this.cacheTags()
         }
         this.loading = false
@@ -199,7 +202,7 @@ export default class TagsSettingDialog extends Vue {
    * reload the tag list for view
    * @param {boolean} tagChangeState
    */
-  setTagChangeState(tagChangeState: boolean) {
+  setTagChangeState(tagChangeState: number) {
     this.$store.commit(NameUtil.CSCK(StoreDefineTagSetting.SET_TAG_CHANGE_STATE), tagChangeState)
   }
 }

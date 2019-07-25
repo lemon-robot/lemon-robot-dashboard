@@ -6,14 +6,11 @@ import TagSettingUpdateTagReq from '@/dto/tag-setting/TagSettingUpdateTagReq'
 import {reject} from 'q'
 
 export default class TagSettingService {
-  static GetTags() {
-    return new Promise((resolve, reject) => {
+  static GetTags(): Promise<DispatcherTag[]> {
+    return new Promise<DispatcherTag[]>((resolve, reject) => {
       Axios.get(UrlDefineTagSetting.GET_TAGS)
         .then(resp => {
-          // if(resp.data.success){
-          //   resolve(resp.data.data)
-          // }
-          resolve(resp.data)
+          resolve(resp.data.data)
         })
         .catch(err => {
           reject(err)
