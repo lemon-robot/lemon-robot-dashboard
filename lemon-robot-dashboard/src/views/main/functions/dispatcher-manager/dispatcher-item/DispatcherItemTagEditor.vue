@@ -1,6 +1,6 @@
 <template>
   <div class="tag-editor-container">
-    <el-button type="primary" icon="el-icon-collection" :size="btnSize" @click="getTags">{{$t(lang + 'edit_tags')}}
+    <el-button type="primary" icon="el-icon-collection" :size="btnSize" @click="init">{{$t(lang + 'edit_tags')}}
     </el-button>
     <el-dialog
         class="tag-editor-dialog"
@@ -8,6 +8,7 @@
         :visible.sync="showEditorState"
         width="600px"
         :close-on-click-modal="false"
+        :before-close="hideTagEditorDialog"
     >
       <el-transfer
           v-model="selectedTagKeys"
@@ -20,7 +21,7 @@
         <el-button class="manage-btn" type="primary" icon="el-icon-edit" :size="btnSize" :loading="loading"
                    @click="showTagSettingDialog">{{$t(lang + 'manage_btn_title')}}</el-button>
         <el-button :size="btnSize" :loading="loading"
-                   @click="showEditorState = false">{{$t(lang + 'cancel_btn_title')}}</el-button>
+                   @click="hideTagEditorDialog">{{$t(lang + 'cancel_btn_title')}}</el-button>
         <el-button type="primary" :size="btnSize" :disabled="okBtnIsDisabled" :loading="loading" @click="setTags">{{$t(lang + 'ok_btn_title')}}</el-button>
       </span>
     </el-dialog>
@@ -50,20 +51,24 @@ export default class DispatchItemTagEditor extends Vue {
   loading: boolean = true
   showEditorState: boolean = false
   okBtnIsDisabled: boolean = true
-  selectedTagKeys: Array<any> = []
-  allTags: Array<any> = []
-  cacheTagKeys: Array<any> = []
+  selectedTagKeys: string[] = []
+  allTags: DispatcherTransferItem[] = []
+  cacheTagKeys: string[] = []
   tagMap = new Map()
   @Prop()
   private dispatcherInfo!: DispatcherOnline
 
-  async getTags() {
+  init() {
+    this.getTags()
+    this.formDataSelectedTags()
+  }
+
+  getTags() {
     this.showEditorState = true
     this.loading = true
-    this.okBtnIsDisabled = true
-    await TagSettingService.GetTags()
-      .then(resp => {
-        this.formDataTags((resp as any).data)
+    TagSettingService.GetTags()
+      .then((resp: DispatcherTag[]) => {
+        this.formDataAllTags(resp)
         this.loading = false
       })
       .catch(err => {
@@ -73,7 +78,7 @@ export default class DispatchItemTagEditor extends Vue {
 
   setTags() {
     this.loading = true
-    const newTags = this.getNewTagsForView()
+    const newTags = this.getNewTagsForView(this.selectedTagKeys)
     const machineSign = this.dispatcherInfo.relationDispatcherMachine.machineSign
     const tagKeys = this.selectedTagKeys
     DispatcherMachineService.SetTags(machineSign, tagKeys)
@@ -86,6 +91,7 @@ export default class DispatchItemTagEditor extends Vue {
           this.dispatcherInfo.relationDispatcherMachine.tags = newTags
           this.loading = false
           this.showEditorState = false
+          this.okBtnIsDisabled = true
         }
       })
       .catch(err => {
@@ -102,14 +108,14 @@ export default class DispatchItemTagEditor extends Vue {
    * get new tags for dispatcher machine
    * @returns {any[]}
    */
-  private getNewTagsForView() {
+  private getNewTagsForView(tagKeys: string[]) {
     let newTags = []
-    if (this.selectedTagKeys.length > 0) {
-      for (let tagKey of this.selectedTagKeys) {
+    if (tagKeys.length > 0) {
+      for (let tagKey of tagKeys) {
+        if (!this.tagMap.has(tagKey)) continue
         newTags.push(this.tagMap.get(tagKey))
       }
     }
-    console.log(newTags)
     return newTags
   }
 
@@ -117,11 +123,9 @@ export default class DispatchItemTagEditor extends Vue {
    * formData tags for transfer ':data' attribute
    * [{ key: string, label: string, disabled: boolean }]
    * formData selectedTagKeys for transfer 'v-model' attribute
-   * set tag map {tagKey: tag}
-   * cache selectedTagKeys
    * @param {[]} tags
    */
-  private formDataTags(tags: DispatcherTag[]) {
+  private formDataAllTags(tags: DispatcherTag[]) {
     // all tags
     this.allTags = []
     this.tagMap.clear()
@@ -129,13 +133,16 @@ export default class DispatchItemTagEditor extends Vue {
       this.tagMap.set(tag.tagKey, tag)
       this.allTags.push(new DispatcherTransferItem(tag.tagKey, tag.tagName, false))
     }
+  }
+
+  private formDataSelectedTags() {
     // selected tags
     const currentTags = this.dispatcherInfo.relationDispatcherMachine.tags || []
     this.selectedTagKeys = []
     for (let tag of currentTags) {
       this.selectedTagKeys.push(tag.tagKey)
-      this.cacheTagKeys = this.selectedTagKeys
     }
+    this.cacheTagKeys = this.selectedTagKeys
   }
 
   private selectedTagsIsNotChanged() {
@@ -151,18 +158,25 @@ export default class DispatchItemTagEditor extends Vue {
   }
 
   @Watch('tagChangeState')
-  onTagChangeState(tagChangeState: boolean) {
-    if (tagChangeState) {
+  onTagChangeState(tagChangeState: number) {
+    if (tagChangeState === 2) {
       this.getTags() // reload tags
-        .then(() => {
-          this.dispatcherInfo.relationDispatcherMachine.tags = this.getNewTagsForView() // reload dispatcher machine tags
-        })
-      this.setTagChangeStateDefault() // set tagChangeState false
+      this.setTagChangeState(1) // set tagChangeState false
     }
   }
 
-  setTagChangeStateDefault() {
-    this.$store.commit(NameUtil.CSCK(StoreDefineTagSetting.SET_TAG_CHANGE_STATE), false)
+  setTagChangeState(tagChangeState: number) {
+    this.$store.commit(NameUtil.CSCK(StoreDefineTagSetting.SET_TAG_CHANGE_STATE), tagChangeState)
+  }
+
+  hideTagEditorDialog() {
+    this.showEditorState = false
+    const tagChangeState = this.$store.getters[NameUtil.CSCK(StoreDefineTagSetting.GET_TAG_CHANGE_STATE)]
+    console.log(tagChangeState, this.getNewTagsForView(this.cacheTagKeys))
+    if (tagChangeState === 1) {
+      this.dispatcherInfo.relationDispatcherMachine.tags = this.getNewTagsForView(this.cacheTagKeys) // reload dispatcher machine tags
+      this.setTagChangeState(0)
+    }
   }
 }
 </script>

@@ -2,12 +2,12 @@ import StoreDefineSystemSettings from '@/define/store/main/functions/system-sett
 
 export interface State {
   tagSettingDialogVisible: boolean
-  tagChangeState: boolean
+  tagChangeState: number
 }
 
 const state: State = {
   tagSettingDialogVisible: false,
-  tagChangeState: false
+  tagChangeState: 0
 }
 
 const getters = {
@@ -23,7 +23,7 @@ const mutations = {
   [StoreDefineSystemSettings.SET_TAG_SETTING_DIALOG_VISIBLE] (state: State, tagSettingDialogVisible: boolean) {
     state.tagSettingDialogVisible = tagSettingDialogVisible
   },
-  [StoreDefineSystemSettings.SET_TAG_CHANGE_STATE] (state: State, tagChangeState: boolean) {
+  [StoreDefineSystemSettings.SET_TAG_CHANGE_STATE] (state: State, tagChangeState: number) {
     state.tagChangeState = tagChangeState
   }
 }
