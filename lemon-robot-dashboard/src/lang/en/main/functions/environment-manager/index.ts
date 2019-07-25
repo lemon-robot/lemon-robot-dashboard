@@ -1,5 +1,5 @@
-import environmentAddComp from './environment-add-comp'
+import environmentComponentAdd from './environment-component-add'
 
 export default {
-  environment_add_comp: environmentAddComp
+  environment_component_add: environmentComponentAdd
 }

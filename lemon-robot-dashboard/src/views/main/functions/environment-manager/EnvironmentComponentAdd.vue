@@ -39,8 +39,8 @@ import EnvironmentService from '@/service/environment/EnvironmentService'
 import EnvironmentComponent from '@/dto/EnvironmentComponent'
 
 @Component
-export default class DispatcherItemAliasEditor extends Vue {
-  lang = 'main.functions.environment_manager.environment_add_comp.'
+export default class EnvironmentComponentAdd extends Vue {
+  lang = 'main.functions.environment_manager.environment_component_add.'
   showAddComp: boolean = false
   loadingState: boolean = false
   environmentComponentName: string = ''

@@ -7,8 +7,10 @@
           <div>{{item.environmentComponentDescription}}</div>
         </div>
         <div style="display: flex">
-          <el-button type="primary" icon="el-icon-edit" circle @click="managerVersion(item.environmentComponentKey)"></el-button>
-          <el-button type="danger" icon="el-icon-delete" circle></el-button>
+          <el-button type="primary" icon="el-icon-edit" circle
+                     @click="managerVersion(item.environmentComponentKey)"></el-button>
+          <el-button type="danger" icon="el-icon-delete" circle
+                     @click="deleteComponent(item.environmentComponentKey)"></el-button>
         </div>
       </div>
     </div>
@@ -37,7 +39,11 @@ export default class EnvironmentComponentList extends Vue {
     })
   }
 
-  managerVersion(componentKey) {
+  managerVersion(componentKey: string) {
+    console.log(componentKey)
+  }
+
+  deleteComponent(componentKey: string) {
     console.log(componentKey)
   }
 }

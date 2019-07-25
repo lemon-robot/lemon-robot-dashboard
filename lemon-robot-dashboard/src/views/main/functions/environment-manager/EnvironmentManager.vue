@@ -1,17 +1,19 @@
 <template>
   <div class="environment-manager-impl">
-    <environment-list class="environment-list"></environment-list>
+    <environment-add-comp></environment-add-comp>
+    <environment-component-list></environment-component-list>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import EnvironmentList from './EnvironmentList.vue'
+import EnvironmentAddComp from './EnvironmentComponentAdd.vue'
+import EnvironmentComponentList from './EnvironmentComponentList.vue'
 
 @Component({
   components: {
-    EnvironmentList
+    EnvironmentAddComp, EnvironmentComponentList
   }
 })
 export default class EnvironmentManager extends Vue {
@@ -20,10 +22,7 @@ export default class EnvironmentManager extends Vue {
 
 <style scoped lang="scss">
   .environment-manager-impl {
-    .environment-list {
-      display: flex;
-      flex-direction: column;
-    }
-
+    display: flex;
+    flex-direction: column;
   }
 </style>

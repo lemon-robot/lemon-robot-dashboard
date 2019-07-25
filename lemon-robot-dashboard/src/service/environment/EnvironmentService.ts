@@ -24,4 +24,8 @@ export default class EnvironmentService {
       })
     })
   }
+
+  // static DeleteEvComponents(environmentComponentKey: string) {
+  //
+  // }
 }
