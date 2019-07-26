@@ -5,13 +5,13 @@
     </div>
     <div class="list-container">
       <div
-        :class="'server-node-item ' + (serverNodeData.nodeInfo.machineSign === selectedServerNodeMachineSign ? 'selected-item' : '')"
-        v-for="serverNodeData in serverNodeList"
-        @click="selectServerNode(serverNodeData)"
-        :key="serverNodeData.nodeInfo.machineSign">
+          :class="'server-node-item ' + (serverNodeData.nodeInfo.machineSign === selectedServerNodeMachineSign ? 'selected-item' : '')"
+          v-for="serverNodeData in serverNodeList"
+          @click="selectServerNode(serverNodeData)"
+          :key="serverNodeData.nodeInfo.machineSign">
         <div class="left-area need-show-os-icon">
           <i
-            :class="'os-icon os-' + (serverNodeData.activeState ? serverNodeData.nodeInfo.operateSystem : 'offline') +
+              :class="'os-icon os-' + (serverNodeData.activeState ? serverNodeData.nodeInfo.operateSystem : 'offline') +
              ' el-icon-' + serverNodeData.nodeInfo.operateSystem"></i>
           <div class="left-bottom-area">
             <div :class="'active-indicator active-state-' + serverNodeData.activeState"></div>
@@ -30,53 +30,53 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-  import ServerNodeService from '@/service/server-node/ServerNodeService'
-  import ServerNodeResp from '@/dto/ServerNodeResp'
-  import NameUtil from '@/utils/NameUtil'
-  import StoreDefineDispatcherManager from '@/define/store/main/functions/dispatcher-manager'
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import ServerNodeService from '@/service/server-node/ServerNodeService'
+import ServerNodeResp from '@/dto/ServerNodeResp'
+import NameUtil from '@/utils/NameUtil'
+import StoreDefineDispatcherManager from '@/define/store/main/functions/dispatcher-manager'
 
-  @Component
-  export default class ServerNodeList extends Vue {
-    lang = 'main.functions.dispatcher_manager.server_node_list.'
-    serverNodeList: ServerNodeResp[] = []
-    listLoading = false
+@Component
+export default class ServerNodeList extends Vue {
+  lang = 'main.functions.dispatcher_manager.server_node_list.'
+  serverNodeList: ServerNodeResp[] = []
+  listLoading = false
 
-    mounted () {
-      this.list()
-    }
-
-    selectServerNode (serverNode: ServerNodeResp) {
-      this.$store.commit(
-        NameUtil.CSCK(StoreDefineDispatcherManager.SET_SELECTED_SERVER_NODE_INFO),
-        serverNode
-      )
-    }
-
-    list () {
-      this.$store.commit(NameUtil.CSCK(StoreDefineDispatcherManager.SET_REFRESH_SERVER_NODE_STATE), true)
-      ServerNodeService.list()
-        .then((data: ServerNodeResp[]) => {
-          this.$store.commit(NameUtil.CSCK(StoreDefineDispatcherManager.SET_REFRESH_SERVER_NODE_STATE), false)
-          this.serverNodeList = data
-          if (data.length > 0) {
-            this.selectServerNode(data[0])
-          }
-        })
-        .catch(() => {
-          this.$store.commit(NameUtil.CSCK(StoreDefineDispatcherManager.SET_REFRESH_SERVER_NODE_STATE), false)
-        })
-    }
-
-    get selectedServerNodeMachineSign (): string {
-      return this.$store.getters[NameUtil.CSCK(StoreDefineDispatcherManager.GET_SELECTED_SERVER_NODE_INFO)].nodeInfo.machineSign
-    }
-
-    get serverNodeDataRefreshState (): boolean {
-      return this.$store.getters[NameUtil.CSCK(StoreDefineDispatcherManager.GET_REFRESH_SERVER_NODE_STATE)]
-    }
+  mounted() {
+    this.list()
   }
+
+  selectServerNode(serverNode: ServerNodeResp) {
+    this.$store.commit(
+      NameUtil.CSCK(StoreDefineDispatcherManager.SET_SELECTED_SERVER_NODE_INFO),
+      serverNode
+    )
+  }
+
+  list() {
+    this.$store.commit(NameUtil.CSCK(StoreDefineDispatcherManager.SET_REFRESH_SERVER_NODE_STATE), true)
+    ServerNodeService.list()
+      .then((data: ServerNodeResp[]) => {
+        this.$store.commit(NameUtil.CSCK(StoreDefineDispatcherManager.SET_REFRESH_SERVER_NODE_STATE), false)
+        this.serverNodeList = data
+        if (data.length > 0) {
+          this.selectServerNode(data[0])
+        }
+      })
+      .catch(() => {
+        this.$store.commit(NameUtil.CSCK(StoreDefineDispatcherManager.SET_REFRESH_SERVER_NODE_STATE), false)
+      })
+  }
+
+  get selectedServerNodeMachineSign(): string {
+    return this.$store.getters[NameUtil.CSCK(StoreDefineDispatcherManager.GET_SELECTED_SERVER_NODE_INFO)].nodeInfo.machineSign
+  }
+
+  get serverNodeDataRefreshState(): boolean {
+    return this.$store.getters[NameUtil.CSCK(StoreDefineDispatcherManager.GET_REFRESH_SERVER_NODE_STATE)]
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -87,7 +87,7 @@
     background: #f0f0f0;
     display: flex;
     flex-direction: row;
-    min-height: 120px;
+    min-height: 156px;
     border-bottom: 1px solid var(--common-border-line-color);
 
     .operator {
@@ -125,8 +125,9 @@
         cursor: pointer;
         min-width: 540px;
         width: 540px;
-        height: 124px;
-        min-height: 124px;
+        height: 120px;
+        min-height: 120px;
+        font-size: 15px;
 
         .left-area {
           padding-right: var(--common-space);
