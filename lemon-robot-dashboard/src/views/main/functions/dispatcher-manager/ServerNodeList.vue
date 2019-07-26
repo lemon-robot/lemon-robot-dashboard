@@ -124,6 +124,8 @@
         cursor: pointer;
         min-width: 540px;
         width: 540px;
+        height: 124px;
+        min-height: 124px;
 
         .left-area {
           padding-right: var(--common-space);
