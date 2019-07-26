@@ -122,8 +122,8 @@
         padding: var(--common-space);
         margin: var(--common-space) 15px var(--common-space) var(--common-space);
         cursor: pointer;
-        min-width: 480px;
-        width: 480px;
+        min-width: 540px;
+        width: 540px;
 
         .left-area {
           padding-right: var(--common-space);
