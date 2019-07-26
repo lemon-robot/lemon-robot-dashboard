@@ -1,7 +1,7 @@
 <template>
   <div class="environment-manager-impl">
     <v-card class="environment-component-view">
-      <v-tabs vertical class="v-tabs-content">
+      <v-tabs class="v-tabs-content" center-active>
         <v-tab>
           <v-icon left>el-icon-component</v-icon>
           {{$t(lang + 'environment_component_tab_name')}}
