@@ -10,7 +10,8 @@
           <el-button type="primary" icon="el-icon-edit" circle
                      @click="managerVersion(item.environmentComponentKey)"></el-button>
           <el-button type="danger" icon="el-icon-delete" circle
-                     @click="deleteComponent(item.environmentComponentKey)"></el-button>
+                     @click="deleteComponent(item.environmentComponentKey)"
+                     :disabled="item.EnvironmentComponentVersionCount>0"></el-button>
         </div>
       </div>
     </div>

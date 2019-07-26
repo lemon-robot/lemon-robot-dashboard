@@ -1,23 +1,9 @@
 <template>
   <div class="environment-manager-impl">
-    <!--<v-tabs>-->
-      <!--<v-tab>Item One</v-tab>-->
-      <!--<v-tab>Item Two</v-tab>-->
-      <!--<v-tab-item>-->
-        <!--<v-card>-->
-          <!--<environment-component-add></environment-component-add>-->
-          <!--<environment-component-list></environment-component-list>-->
-        <!--</v-card>-->
-        <!--<v-card></v-card>-->
-      <!--</v-tab-item>-->
-    <!--</v-tabs>-->
-    <!--<environment-component-add></environment-component-add>-->
-    <!--<environment-component-list></environment-component-list>-->
-
     <v-card class="environment-component-view">
       <v-tabs vertical class="v-tabs-content">
           <v-tab>
-            <v-icon left>mdi-account</v-icon>
+            <!--<v-icon left>mdi-account</v-icon>-->
             Environment-Component
           </v-tab>
           <v-tab>
