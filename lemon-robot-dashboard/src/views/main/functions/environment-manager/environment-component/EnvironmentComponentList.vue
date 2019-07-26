@@ -1,19 +1,23 @@
 <template>
   <div class="environment-component-list">
-    <div class="component-content" v-for="item in componentsList" :key="item.environmentComponentKey">
-      <div class="component-item">
-        <div>
-          <div>{{item.environmentComponentName}}</div>
-          <div>{{item.environmentComponentDescription}}</div>
+    <div class="component-content" v-for="(item,index) in componentsList" :key="index">
+      <el-tooltip class="item" effect="dark" :content="$t(lang + 'environment_component_list_item_tooltip')"
+                  placement="top-start"
+                  :disabled="item.EnvironmentComponentVersionCount<=0">
+        <div class="component-item">
+          <div>
+            <div>{{item.environmentComponentName}}</div>
+            <div>{{item.environmentComponentDescription}}</div>
+          </div>
+          <div style="display: flex">
+            <el-button type="primary" icon="el-icon-edit" circle
+                       @click="managerVersion(item.environmentComponentKey)"></el-button>
+            <el-button type="danger" icon="el-icon-delete" circle
+                       @click="deleteComponent(item.environmentComponentKey,index)"
+                       :disabled="item.EnvironmentComponentVersionCount>0"></el-button>
+          </div>
         </div>
-        <div style="display: flex">
-          <el-button type="primary" icon="el-icon-edit" circle
-                     @click="managerVersion(item.environmentComponentKey)"></el-button>
-          <el-button type="danger" icon="el-icon-delete" circle
-                     @click="deleteComponent(item.environmentComponentKey)"
-                     :disabled="item.EnvironmentComponentVersionCount>0"></el-button>
-        </div>
-      </div>
+      </el-tooltip>
     </div>
   </div>
 </template>
@@ -25,6 +29,7 @@ import EnvironmentComponent from '@/dto/EnvironmentComponent'
 
 @Component
 export default class EnvironmentComponentList extends Vue {
+  lang = 'main.functions.environment_manager.environment_component_list.'
   componentsList: EnvironmentComponent[] = []
 
   mounted() {
@@ -44,8 +49,13 @@ export default class EnvironmentComponentList extends Vue {
     console.log(componentKey)
   }
 
-  deleteComponent(componentKey: string) {
-    console.log(componentKey)
+  deleteComponent(componentKey: string, index: number) {
+    EnvironmentService.DeleteEvComponents(componentKey).then(resp => {
+      this.componentsList.splice(index, 1)
+      this.getComponentList()
+    }).catch(err => {
+      console.log(err)
+    })
   }
 }
 </script>
