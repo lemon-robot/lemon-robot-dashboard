@@ -1,6 +1,7 @@
 import axios from 'axios'
 import UrlDefineEnvironment from '@/define/url/UrlDefineEnvironment'
 import EnvironmentCreateEvCompReq from '@/dto/EnvironmentCreateEvCompReq'
+import EnvironmentDeleteComponentReq from '@/dto/EnvironmentDeleteComponentReq'
 import EnvironmentComponent from '@/dto/EnvironmentComponent'
 
 export default class EnvironmentService {
@@ -25,7 +26,15 @@ export default class EnvironmentService {
     })
   }
 
-  // static DeleteEvComponents(environmentComponentKey: string) {
-  //
-  // }
+  static DeleteEvComponents(environmentComponentKey: string) {
+    return new Promise((resolve, reject) => {
+      axios.delete(UrlDefineEnvironment.DELETE_EV_COMPONENTS, {
+        data: new EnvironmentDeleteComponentReq(environmentComponentKey)
+      }).then((resp) => {
+        resolve(resp.data.success)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  }
 }
