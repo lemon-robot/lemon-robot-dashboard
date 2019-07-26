@@ -112,7 +112,8 @@
       flex-grow: 1;
       display: flex;
       flex-direction: row;
-      overflow: scroll;
+      overflow-x: scroll;
+      overflow-y: hidden;
       justify-content: space-between;
 
       .server-node-item {
