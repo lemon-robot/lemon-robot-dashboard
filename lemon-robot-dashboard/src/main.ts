@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
-import Vuetify from 'vuetify'
+import Vuetify from './vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import VueAxios from 'vue-axios'
@@ -16,18 +16,19 @@ import LoginService from '@/service/login/LoginService'
 
 Vue.config.productionTip = false
 
-Vue.use(Vuetify, {
-  iconfont: 'md',
-  theme: {
-    primary: '#1976D2',
-    secondary: '#424242',
-    accent: '#82B1FF',
-    error: '#FF5252',
-    info: '#2196F3',
-    success: '#4CAF50',
-    warning: '#FFC107'
-  }
-})
+// Vue.use(Vuetify, {
+//   iconfont: 'md',
+//   theme: {
+//     primary: '#1976D2',
+//     secondary: '#424242',
+//     accent: '#82B1FF',
+//     error: '#FF5252',
+//     info: '#2196F3',
+//     success: '#4CAF50',
+//     warning: '#FFC107'
+//   }
+// })
+Vue.use(Vuetify)
 Vue.use(Vuex)
 Vue.use(ElementUI)
 Vue.use(VueAxios, axios)
@@ -67,5 +68,6 @@ axios.defaults.baseURL = window.$HOST
 new Vue({
   i18n,
   router,
-  render: h => h(App)
+  render: h => h(App),
+  vuetify: Vuetify
 }).$mount('#app')
