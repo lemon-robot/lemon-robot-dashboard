@@ -4,11 +4,11 @@
       <v-tabs vertical class="v-tabs-content">
           <v-tab>
             <v-icon left>el-icon-component</v-icon>
-            Environment-Component
+            {{$t(lang + 'environment_component_tab_name')}}
           </v-tab>
           <v-tab>
             <v-icon left>el-icon-runtime_environment</v-icon>
-            Runtime-Environment
+            {{$t(lang + 'runtime_environment_tab_name')}}
           </v-tab>
         <v-tab-item>
           <v-card flat>
@@ -38,6 +38,7 @@ import EnvironmentComponentList from './environment-component/EnvironmentCompone
   }
 })
 export default class EnvironmentManager extends Vue {
+  lang = 'main.functions.environment_manager.environment_component_list.'
 }
 </script>
 
