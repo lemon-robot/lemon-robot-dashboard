@@ -3,11 +3,11 @@
     <v-card class="environment-component-view">
       <v-tabs vertical class="v-tabs-content">
           <v-tab>
-            <!--<v-icon left>mdi-account</v-icon>-->
+            <v-icon left>el-icon-component</v-icon>
             Environment-Component
           </v-tab>
           <v-tab>
-            <v-icon left>mdi-lock</v-icon>
+            <v-icon left>el-icon-runtime_environment</v-icon>
             Runtime-Environment
           </v-tab>
         <v-tab-item>
