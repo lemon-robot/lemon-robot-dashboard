@@ -20,10 +20,10 @@
         </div>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="secondary" flat="flat" @click="showAddComp = false">{{$t(lang +
+          <v-btn color="secondary" text="text" @click="showAddComp = false">{{$t(lang +
             'cancel_btn_title')}}
           </v-btn>
-          <v-btn color="primary" flat="flat" @click="saveComponent">
+          <v-btn color="primary" text="text" @click="saveComponent">
             {{$t(lang + 'ok_btn_title')}}
           </v-btn>
         </v-card-actions>
@@ -37,6 +37,8 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import EnvironmentService from '@/service/environment/EnvironmentService'
 import EnvironmentComponent from '@/dto/EnvironmentComponent'
+import NameUtil from '@/utils/NameUtil'
+import StoreDefineEnvironmentManager from '@/define/store/main/functions/environment-manager'
 
 @Component
 export default class EnvironmentComponentAdd extends Vue {
@@ -54,6 +56,7 @@ export default class EnvironmentComponentAdd extends Vue {
 
   saveComponent() {
     EnvironmentService.CreateEvComponents(this.environmentComponentName, this.environmentComponentDescribe).then(resp => {
+      this.$store.commit(NameUtil.CSCK(StoreDefineEnvironmentManager.SET_ENVIRONMENT_COMPONENT_LIST), true)
       if (resp) {
         this.$notify.success({
           title: this.$t(this.lang + 'add_ev_component_success_title').toString(),
@@ -63,6 +66,7 @@ export default class EnvironmentComponentAdd extends Vue {
       }
     }).catch(() => {
       this.showAddComp = false
+      this.$store.commit(NameUtil.CSCK(StoreDefineEnvironmentManager.SET_ENVIRONMENT_COMPONENT_LIST), false)
     })
   }
 }
